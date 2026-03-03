@@ -117,6 +117,9 @@ export class AdminLoginComponent {
       return;
     }
 
+    // Wait for profile to load before navigating so the guard doesn't bounce back
+    await this.authService.waitForProfile();
+    this.loading.set(false);
     const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/admin/dashboard';
     this.router.navigate([returnUrl]);
   }
