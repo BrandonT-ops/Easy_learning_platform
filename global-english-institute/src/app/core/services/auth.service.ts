@@ -49,14 +49,36 @@ export class AuthService {
   }
 
   private async loadProfile(userId: string) {
-    const { data } = await this.supabaseService.supabase
+    let { data } = await this.supabaseService.supabase
       .from('profiles')
       .select('*')
       .eq('id', userId)
       .maybeSingle();
 
-    if (data) {
-      this._user.set(data as Profile);
+    if (!data) {
+      // Profile row doesn't exist yet — create it so the admin can log in
+      const { data: authData } = await this.supabaseService.supabase.auth.getUser();
+      const fallback = {
+        id: userId,
+        full_name: authData?.user?.email?.split('@')[0] ?? 'Admin',
+        role: 'admin',
+      };
+      const { data: created } = await this.supabaseService.supabase
+        .from('profiles')
+        .upsert(fallback)
+        .select()
+        .maybeSingle();
+      data = created ?? fallback;
+    }
+
+    this._user.set(data as Profile);
+  }
+
+  /** Resolves once the auth state change handler has finished loading the profile. */
+  async waitForProfile(): Promise<void> {
+    for (let i = 0; i < 40; i++) {
+      if (this._user()) return;
+      await new Promise(resolve => setTimeout(resolve, 100));
     }
   }
 
