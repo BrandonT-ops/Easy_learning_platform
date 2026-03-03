@@ -6,16 +6,32 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class SupabaseService {
-  private client: SupabaseClient;
+  private client!: SupabaseClient;
+  readonly configured: boolean;
 
   constructor() {
-    this.client = createClient(
-      environment.supabaseUrl,
-      environment.supabaseAnonKey
-    );
+    const url = environment.supabaseUrl;
+    const key = environment.supabaseAnonKey;
+
+    const isPlaceholder = !url || url.includes('YOUR_SUPABASE') || !url.startsWith('http');
+
+    if (isPlaceholder) {
+      console.warn(
+        '[SupabaseService] Supabase credentials are not configured. ' +
+        'Set SUPABASE_URL and SUPABASE_ANON_KEY as environment variables ' +
+        'and redeploy. Database features will not work until configured.'
+      );
+      this.configured = false;
+    } else {
+      this.client = createClient(url, key);
+      this.configured = true;
+    }
   }
 
   get supabase(): SupabaseClient {
+    if (!this.configured) {
+      throw new Error('Supabase is not configured. Set SUPABASE_URL and SUPABASE_ANON_KEY environment variables.');
+    }
     return this.client;
   }
 

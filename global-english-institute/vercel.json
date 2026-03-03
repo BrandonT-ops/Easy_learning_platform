@@ -1,5 +1,5 @@
 {
-  "buildCommand": "sed -i \"s|YOUR_SUPABASE_URL|$SUPABASE_URL|g\" src/environments/environment.prod.ts && sed -i \"s|YOUR_SUPABASE_ANON_KEY|$SUPABASE_ANON_KEY|g\" src/environments/environment.prod.ts && npm run build",
+  "buildCommand": "node set-env.js && npm run build",
   "outputDirectory": "dist/global-english-institute/browser",
   "framework": null,
   "rewrites": [
