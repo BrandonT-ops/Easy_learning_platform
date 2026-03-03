@@ -4,5 +4,10 @@
   "framework": null,
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
-  ]
+  ],
+  "env": {
+    "SUPABASE_URL": "https://umdupozcxnqmrgksudlw.supabase.co",
+    "SUPABASE_ANON_KEY": "sb_publishable_hD8feNMU7Hv88G6tA8jQdw_tAMKhmo8",
+    "RESEND_API_KEY": "re_N5RmQ1GM_K3a1eNqXgC7yBbunP1vE5Kku"
+  }
 }
