@@ -15,44 +15,114 @@ import { Testimonial } from '../../core/models';
 
     <main>
       <!-- Hero Section -->
-      <section class="bg-white pt-16 pb-20 sm:pt-24 sm:pb-28">
+      <section class="bg-white pt-14 pb-16 sm:pt-20 sm:pb-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="max-w-3xl">
-            <div class="inline-flex items-center gap-2 bg-primary-50 text-primary-700 text-xs font-medium px-3 py-1.5 rounded-full mb-6">
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              100% Online Learning
-            </div>
-            <h1 class="text-4xl font-bold text-neutral-900 sm:text-5xl lg:text-6xl leading-tight">
-              Master English.<br />
-              <span class="text-primary-600">At Your Own Pace.</span>
-            </h1>
-            <p class="mt-6 text-lg text-neutral-500 max-w-2xl leading-relaxed">
-              CEFR-aligned online English language programs designed for professionals and learners worldwide. Start with a free placement test to find your level.
-            </p>
-            <div class="mt-8 flex flex-col sm:flex-row gap-3">
-              <a routerLink="/placement-test" class="btn-primary px-8 py-3.5 text-base">
-                Take Free Placement Test
-              </a>
-              <a routerLink="/programs" class="btn-secondary px-8 py-3.5 text-base">
-                View Programs
-              </a>
-            </div>
-            <div class="mt-10 flex items-center gap-6">
-              <div class="flex -space-x-2">
-                @for (i of [1,2,3,4]; track i) {
-                  <div class="w-8 h-8 rounded-full bg-primary-{{ i * 100 + 200 }} border-2 border-white flex items-center justify-center">
-                    <svg class="w-4 h-4 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-                    </svg>
-                  </div>
-                }
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <!-- Left: Text Content -->
+            <div>
+              <div class="inline-flex items-center gap-2 bg-primary-50 text-primary-700 text-xs font-medium px-3 py-1.5 rounded-full mb-6">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                100% Online Learning
               </div>
-              <p class="text-sm text-neutral-500">
-                <span class="font-semibold text-neutral-900">2,400+</span> students enrolled globally
+              <h1 class="text-4xl font-bold text-neutral-900 sm:text-5xl lg:text-5xl xl:text-6xl leading-tight">
+                Master English.<br />
+                <span class="text-primary-600">At Your Own Pace.</span>
+              </h1>
+              <p class="mt-6 text-lg text-neutral-500 leading-relaxed">
+                CEFR-aligned online English programs designed for professionals and learners worldwide. Start with a free placement test to find your level.
               </p>
+              <div class="mt-8 flex flex-col sm:flex-row gap-3">
+                <a routerLink="/placement-test" class="btn-primary px-7 py-3.5 text-base">
+                  Take Free Placement Test
+                </a>
+                <a routerLink="/programs" class="btn-secondary px-7 py-3.5 text-base">
+                  View Programs
+                </a>
+              </div>
+              <div class="mt-10 flex items-center gap-6">
+                <div class="flex -space-x-2">
+                  <div class="w-8 h-8 rounded-full bg-blue-200 border-2 border-white flex items-center justify-center">
+                    <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+                  </div>
+                  <div class="w-8 h-8 rounded-full bg-blue-300 border-2 border-white flex items-center justify-center">
+                    <svg class="w-4 h-4 text-blue-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+                  </div>
+                  <div class="w-8 h-8 rounded-full bg-blue-400 border-2 border-white flex items-center justify-center">
+                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+                  </div>
+                  <div class="w-8 h-8 rounded-full bg-primary-600 border-2 border-white flex items-center justify-center">
+                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+                  </div>
+                </div>
+                <p class="text-sm text-neutral-500">
+                  <span class="font-semibold text-neutral-900">2,400+</span> students enrolled globally
+                </p>
+              </div>
             </div>
+
+            <!-- Right: Visual Panel (desktop only) -->
+            <div class="hidden lg:flex flex-col gap-4">
+
+              <!-- CEFR Levels Card -->
+              <div class="card p-6 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                  <p class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">CEFR Levels Covered</p>
+                  <span class="badge badge-blue text-xs">5 Levels</span>
+                </div>
+                <div class="space-y-2.5">
+                  @for (level of heroLevels; track level.code) {
+                    <div class="flex items-center gap-3 p-2.5 rounded-lg"
+                         [class.bg-primary-50]="level.highlight"
+                         [class.border]="level.highlight"
+                         [class.border-primary-200]="level.highlight">
+                      <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-bold"
+                           [class.bg-primary-600]="level.highlight"
+                           [class.text-white]="level.highlight"
+                           [class.bg-neutral-100]="!level.highlight"
+                           [class.text-neutral-500]="!level.highlight">
+                        {{ level.code }}
+                      </div>
+                      <div class="min-w-0 flex-1">
+                        <p class="text-sm font-medium text-neutral-900">{{ level.name }}</p>
+                        <p class="text-xs text-neutral-400">{{ level.duration }}</p>
+                      </div>
+                      @if (level.highlight) {
+                        <svg class="w-4 h-4 text-primary-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                      }
+                    </div>
+                  }
+                </div>
+                <div class="mt-5 pt-4 border-t border-neutral-100 flex items-center gap-2">
+                  <svg class="w-4 h-4 text-primary-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <p class="text-xs text-neutral-500">Free placement test included — find your level in 30 minutes</p>
+                </div>
+              </div>
+
+              <!-- Mini Stats Row -->
+              <div class="grid grid-cols-3 gap-3">
+                <div class="card p-4 text-center">
+                  <p class="text-xl font-bold text-primary-600">A1</p>
+                  <p class="text-xs text-neutral-500 mt-0.5">Beginner</p>
+                </div>
+                <div class="card p-4 text-center">
+                  <p class="text-xl font-bold text-primary-600">C1</p>
+                  <p class="text-xs text-neutral-500 mt-0.5">Advanced</p>
+                </div>
+                <div class="card p-4 text-center">
+                  <p class="text-xl font-bold text-primary-600">98%</p>
+                  <p class="text-xs text-neutral-500 mt-0.5">Satisfaction</p>
+                </div>
+              </div>
+
+            </div>
+
           </div>
         </div>
       </section>
@@ -206,6 +276,14 @@ import { Testimonial } from '../../core/models';
 })
 export class HomeComponent implements OnInit {
   testimonials = signal<Testimonial[]>([]);
+
+  heroLevels = [
+    { code: 'A1', name: 'Beginner', duration: '3 months', highlight: false },
+    { code: 'A2', name: 'Elementary', duration: '3 months', highlight: false },
+    { code: 'B1', name: 'Intermediate', duration: '4 months', highlight: true },
+    { code: 'B2', name: 'Upper-Intermediate', duration: '5 months', highlight: false },
+    { code: 'C1', name: 'Advanced', duration: '6 months', highlight: false },
+  ];
 
   stats = [
     { value: '2,400+', label: 'Students Enrolled' },

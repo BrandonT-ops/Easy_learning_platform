@@ -13,26 +13,32 @@ export class WebsiteSettingsService {
     this.loadSettings();
   }
 
-  async loadSettings() {
-    const { data } = await this.supabaseService.supabase
-      .from('website_settings')
-      .select('*')
-      .limit(1)
-      .single();
+  private readonly defaultSettings: WebsiteSettings = {
+    id: '',
+    site_name: 'Global English Institute',
+    tagline: 'Professional Online English Language Training',
+    primary_color: '#2563eb',
+    contact_email: 'info@globalenglishinstitute.com',
+    phone: '+1 (555) 000-0000',
+    updated_at: new Date().toISOString(),
+  };
 
-    if (data) {
-      this._settings.set(data as WebsiteSettings);
-    } else {
-      // Default settings fallback
-      this._settings.set({
-        id: '',
-        site_name: 'Global English Institute',
-        tagline: 'Professional Online English Language Training',
-        primary_color: '#2563eb',
-        contact_email: 'info@globalenglishinstitute.com',
-        phone: '+1 (555) 000-0000',
-        updated_at: new Date().toISOString(),
-      });
+  async loadSettings() {
+    if (!this.supabaseService.configured) {
+      this._settings.set(this.defaultSettings);
+      return;
+    }
+
+    try {
+      const { data } = await this.supabaseService.supabase
+        .from('website_settings')
+        .select('*')
+        .limit(1)
+        .single();
+
+      this._settings.set(data ? (data as WebsiteSettings) : this.defaultSettings);
+    } catch {
+      this._settings.set(this.defaultSettings);
     }
   }
 

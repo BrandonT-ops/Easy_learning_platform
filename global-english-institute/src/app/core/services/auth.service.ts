@@ -23,11 +23,21 @@ export class AuthService {
   }
 
   private async init() {
-    const session = await this.supabaseService.getSession();
-    if (session?.user) {
-      await this.loadProfile(session.user.id);
+    if (!this.supabaseService.configured) {
+      this._loading.set(false);
+      return;
     }
-    this._loading.set(false);
+
+    try {
+      const session = await this.supabaseService.getSession();
+      if (session?.user) {
+        await this.loadProfile(session.user.id);
+      }
+    } catch {
+      // Auth init failure should not crash the app
+    } finally {
+      this._loading.set(false);
+    }
 
     this.supabaseService.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_IN' && session?.user) {

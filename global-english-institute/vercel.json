@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "node set-env.js && npm run build",
   "outputDirectory": "dist/global-english-institute/browser",
   "framework": null,
   "rewrites": [
