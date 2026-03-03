@@ -119,6 +119,6 @@ export class PlacementTestService {
       .from('placement_tests')
       .select('*')
       .eq('id', id)
-      .single();
+      .maybeSingle();
   }
 }

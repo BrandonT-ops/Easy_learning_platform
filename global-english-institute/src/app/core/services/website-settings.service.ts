@@ -34,7 +34,7 @@ export class WebsiteSettingsService {
         .from('website_settings')
         .select('*')
         .limit(1)
-        .single();
+        .maybeSingle();
 
       this._settings.set(data ? (data as WebsiteSettings) : this.defaultSettings);
     } catch {
