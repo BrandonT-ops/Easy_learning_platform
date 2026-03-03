@@ -63,7 +63,7 @@ import { Testimonial } from '../../core/models';
               </div>
             </div>
 
-            <!-- Right: Visual Panel -->
+            <!-- Right: Visual Panel (desktop only) -->
             <div class="hidden lg:flex flex-col gap-4">
 
               <!-- CEFR Levels Card -->
