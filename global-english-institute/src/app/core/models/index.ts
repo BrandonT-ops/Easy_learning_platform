@@ -33,7 +33,8 @@ export interface PlacementTest {
   created_at: string;
 }
 
-export type CefrLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1';
+export type EnglishLevel = 'Beginner' | 'Intermediate' | 'Advanced';
+export type CefrLevel = EnglishLevel; // alias for compatibility
 export type TestStatus = 'pending' | 'contacted' | 'enrolled' | 'rejected';
 
 export interface Registration {

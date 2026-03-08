@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PlacementTestService } from '../../../core/services/placement-test.service';
-import { PlacementTest, CefrLevel } from '../../../core/models';
+import { PlacementTest, EnglishLevel } from '../../../core/models';
 
 @Component({
   selector: 'app-admin-tests',
@@ -21,12 +21,10 @@ import { PlacementTest, CefrLevel } from '../../../core/models';
       <div class="card p-4 mb-6 flex flex-col sm:flex-row gap-3">
         <select [(ngModel)]="filterLevel" (ngModelChange)="applyFilters()"
                 class="form-select max-w-xs text-sm">
-          <option value="">All CEFR Levels</option>
-          <option value="A1">A1</option>
-          <option value="A2">A2</option>
-          <option value="B1">B1</option>
-          <option value="B2">B2</option>
-          <option value="C1">C1</option>
+          <option value="">All Levels</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
         </select>
         <select [(ngModel)]="filterStatus" (ngModelChange)="applyFilters()"
                 class="form-select max-w-xs text-sm">
@@ -54,7 +52,7 @@ import { PlacementTest, CefrLevel } from '../../../core/models';
                 <tr>
                   <th class="text-left py-3 px-4 font-medium text-neutral-600 text-xs uppercase tracking-wider">Name</th>
                   <th class="text-left py-3 px-4 font-medium text-neutral-600 text-xs uppercase tracking-wider">Scores</th>
-                  <th class="text-left py-3 px-4 font-medium text-neutral-600 text-xs uppercase tracking-wider">CEFR</th>
+                  <th class="text-left py-3 px-4 font-medium text-neutral-600 text-xs uppercase tracking-wider">Level</th>
                   <th class="text-left py-3 px-4 font-medium text-neutral-600 text-xs uppercase tracking-wider">Status</th>
                   <th class="text-left py-3 px-4 font-medium text-neutral-600 text-xs uppercase tracking-wider">Date</th>
                   <th class="text-left py-3 px-4 font-medium text-neutral-600 text-xs uppercase tracking-wider">Actions</th>
@@ -189,14 +187,12 @@ import { PlacementTest, CefrLevel } from '../../../core/models';
                        class="form-input text-sm" placeholder="0–100" />
               </div>
               <div>
-                <label class="form-label text-xs">Override CEFR Level</label>
+                <label class="form-label text-xs">Override Level</label>
                 <select [(ngModel)]="editCefrLevel" class="form-select text-sm">
                   <option value="">Keep current ({{ selectedTest()!.cefr_level }})</option>
-                  <option value="A1">A1</option>
-                  <option value="A2">A2</option>
-                  <option value="B1">B1</option>
-                  <option value="B2">B2</option>
-                  <option value="C1">C1</option>
+                  <option value="Beginner">Beginner</option>
+                  <option value="Intermediate">Intermediate</option>
+                  <option value="Advanced">Advanced</option>
                 </select>
               </div>
             </div>

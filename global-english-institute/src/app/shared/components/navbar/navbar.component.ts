@@ -1,7 +1,8 @@
-import { Component, OnInit, signal, HostListener } from '@angular/core';
+import { Component, OnInit, signal, HostListener, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { WebsiteSettingsService } from '../../../core/services/website-settings.service';
+import { LanguageService } from '../../../core/services/language.service';
 
 @Component({
   selector: 'app-navbar',
@@ -26,26 +27,30 @@ import { WebsiteSettingsService } from '../../../core/services/website-settings.
           <div class="hidden md:flex items-center gap-1">
             <a routerLink="/" routerLinkActive="text-primary-600" [routerLinkActiveOptions]="{ exact: true }"
                class="px-3 py-2 text-sm font-medium text-neutral-600 rounded-md hover:text-neutral-900 hover:bg-neutral-50 transition-colors">
-              Home
+              {{ ls.t().nav.home }}
             </a>
             <a routerLink="/about" routerLinkActive="text-primary-600"
                class="px-3 py-2 text-sm font-medium text-neutral-600 rounded-md hover:text-neutral-900 hover:bg-neutral-50 transition-colors">
-              About
+              {{ ls.t().nav.about }}
             </a>
             <a routerLink="/programs" routerLinkActive="text-primary-600"
                class="px-3 py-2 text-sm font-medium text-neutral-600 rounded-md hover:text-neutral-900 hover:bg-neutral-50 transition-colors">
-              Programs
+              {{ ls.t().nav.programs }}
             </a>
             <a routerLink="/contact" routerLinkActive="text-primary-600"
                class="px-3 py-2 text-sm font-medium text-neutral-600 rounded-md hover:text-neutral-900 hover:bg-neutral-50 transition-colors">
-              Contact
+              {{ ls.t().nav.contact }}
             </a>
           </div>
 
-          <!-- CTA -->
-          <div class="hidden md:flex items-center gap-3">
+          <!-- CTA + Language Toggle -->
+          <div class="hidden md:flex items-center gap-2">
+            <button (click)="ls.toggle()"
+                    class="px-3 py-1.5 text-xs font-semibold border border-neutral-300 rounded-md text-neutral-600 hover:border-primary-400 hover:text-primary-600 transition-colors">
+              {{ ls.t().langSwitch }}
+            </button>
             <a routerLink="/placement-test" class="btn-primary text-xs px-4 py-2">
-              Take Placement Test
+              {{ ls.t().nav.cta }}
             </a>
           </div>
 
@@ -66,13 +71,16 @@ import { WebsiteSettingsService } from '../../../core/services/website-settings.
         <!-- Mobile Menu -->
         @if (menuOpen()) {
           <div class="md:hidden border-t border-neutral-100 py-3 space-y-1">
-            <a routerLink="/" (click)="closeMenu()" class="block px-3 py-2 text-sm font-medium text-neutral-600 rounded-md hover:bg-neutral-50">Home</a>
-            <a routerLink="/about" (click)="closeMenu()" class="block px-3 py-2 text-sm font-medium text-neutral-600 rounded-md hover:bg-neutral-50">About</a>
-            <a routerLink="/programs" (click)="closeMenu()" class="block px-3 py-2 text-sm font-medium text-neutral-600 rounded-md hover:bg-neutral-50">Programs</a>
-            <a routerLink="/contact" (click)="closeMenu()" class="block px-3 py-2 text-sm font-medium text-neutral-600 rounded-md hover:bg-neutral-50">Contact</a>
-            <div class="pt-2 pb-1">
-              <a routerLink="/placement-test" (click)="closeMenu()" class="btn-primary w-full text-center text-xs">
-                Take Placement Test
+            <a routerLink="/" (click)="closeMenu()" class="block px-3 py-2 text-sm font-medium text-neutral-600 rounded-md hover:bg-neutral-50">{{ ls.t().nav.home }}</a>
+            <a routerLink="/about" (click)="closeMenu()" class="block px-3 py-2 text-sm font-medium text-neutral-600 rounded-md hover:bg-neutral-50">{{ ls.t().nav.about }}</a>
+            <a routerLink="/programs" (click)="closeMenu()" class="block px-3 py-2 text-sm font-medium text-neutral-600 rounded-md hover:bg-neutral-50">{{ ls.t().nav.programs }}</a>
+            <a routerLink="/contact" (click)="closeMenu()" class="block px-3 py-2 text-sm font-medium text-neutral-600 rounded-md hover:bg-neutral-50">{{ ls.t().nav.contact }}</a>
+            <div class="pt-2 pb-1 flex gap-2">
+              <button (click)="ls.toggle()" class="px-3 py-2 text-xs font-semibold border border-neutral-300 rounded-md text-neutral-600">
+                {{ ls.t().langSwitch }}
+              </button>
+              <a routerLink="/placement-test" (click)="closeMenu()" class="btn-primary flex-1 text-center text-xs">
+                {{ ls.t().nav.cta }}
               </a>
             </div>
           </div>
@@ -85,6 +93,8 @@ export class NavbarComponent implements OnInit {
   scrolled = signal(false);
   menuOpen = signal(false);
   siteName = signal('Talkr by Easy Learning');
+
+  ls = inject(LanguageService);
 
   constructor(private settingsService: WebsiteSettingsService) {}
 

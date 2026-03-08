@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CefrLevel, TestAnswer, ScoringResult } from '../models';
+import { EnglishLevel, TestAnswer, ScoringResult } from '../models';
 
 /**
  * TestScoringService
@@ -95,35 +95,39 @@ export class TestScoringService {
       grammarScore,
       listeningScore,
       totalObjectiveScore,
-      cefrLevel: this.mapScoreToCefr(totalObjectiveScore),
+      cefrLevel: this.mapScoreToLevel(totalObjectiveScore),
     };
   }
 
   /**
-   * Map numeric score to CEFR level.
+   * Map numeric score to English level.
    * Scoring bands:
-   * 0–20   → A1
-   * 21–40  → A2
-   * 41–60  → B1
-   * 61–80  → B2
-   * 81–100 → C1
+   * 0–33   → Beginner
+   * 34–66  → Intermediate
+   * 67–100 → Advanced
    */
-  mapScoreToCefr(score: number): CefrLevel {
-    if (score <= 20) return 'A1';
-    if (score <= 40) return 'A2';
-    if (score <= 60) return 'B1';
-    if (score <= 80) return 'B2';
-    return 'C1';
+  mapScoreToLevel(score: number): EnglishLevel {
+    if (score <= 33) return 'Beginner';
+    if (score <= 66) return 'Intermediate';
+    return 'Advanced';
   }
 
-  getCefrDescription(level: CefrLevel): string {
-    const descriptions: Record<CefrLevel, string> = {
-      A1: 'Beginner - You can understand and use familiar everyday expressions.',
-      A2: 'Elementary - You can communicate in simple and routine tasks.',
-      B1: 'Intermediate - You can deal with most situations likely to arise whilst travelling.',
-      B2: 'Upper Intermediate - You can interact with a degree of fluency with native speakers.',
-      C1: 'Advanced - You can express ideas fluently and spontaneously.',
+  /** @deprecated use mapScoreToLevel */
+  mapScoreToCefr(score: number): EnglishLevel {
+    return this.mapScoreToLevel(score);
+  }
+
+  getLevelDescription(level: EnglishLevel): string {
+    const descriptions: Record<EnglishLevel, string> = {
+      Beginner: 'Beginner — you can understand and use familiar everyday expressions.',
+      Intermediate: 'Intermediate — you can handle most everyday situations with confidence.',
+      Advanced: 'Advanced — you can express ideas fluently and spontaneously.',
     };
     return descriptions[level];
+  }
+
+  /** @deprecated use getLevelDescription */
+  getCefrDescription(level: EnglishLevel): string {
+    return this.getLevelDescription(level);
   }
 }
