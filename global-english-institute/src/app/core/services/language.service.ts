@@ -25,9 +25,9 @@ const TRANSLATIONS = {
       whatsapp: "S'inscrire via WhatsApp",
       levelsTitle: 'Niveaux disponibles',
       levels: [
-        { name: 'Débutant', duration: '3 mois', highlight: false },
-        { name: 'Intermédiaire', duration: '4 mois', highlight: true },
-        { name: 'Avancé', duration: '5 mois', highlight: false },
+        { name: 'Débutant', duration: 'par mois', highlight: false },
+        { name: 'Intermédiaire', duration: 'par mois', highlight: true },
+        { name: 'Avancé', duration: 'par mois', highlight: false },
       ],
       placement: 'Test de placement gratuit inclus — 20 min',
     },
@@ -63,9 +63,9 @@ const TRANSLATIONS = {
       sub: 'Des programmes structurés pour une progression mesurable.',
       viewAll: 'Voir tous les programmes',
       levels: [
-        { code: '1', name: 'Débutant', description: 'Apprends les bases de la communication quotidienne.', duration: '3 mois' },
-        { code: '2', name: 'Intermédiaire', description: 'Gère la plupart des situations du quotidien.', duration: '4 mois' },
-        { code: '3', name: 'Avancé', description: "Exprime tes idées avec précision et aisance.", duration: '5 mois' },
+        { code: '1', name: 'Débutant', description: 'Apprends les bases de la communication quotidienne.', duration: 'par mois' },
+        { code: '2', name: 'Intermédiaire', description: 'Gère la plupart des situations du quotidien.', duration: 'par mois' },
+        { code: '3', name: 'Avancé', description: "Exprime tes idées avec précision et aisance.", duration: 'par mois' },
       ],
     },
     cta: {
@@ -131,19 +131,19 @@ const TRANSLATIONS = {
       ctaSecondary: "S'inscrire",
       programs: [
         {
-          code: '1', name: 'Débutant', duration: '3 mois',
+          code: '1', name: 'Débutant', duration: 'par mois',
           description: "Une introduction à l'anglais pour les débutants complets. Tu développeras la capacité à te présenter, poser et répondre à des questions sur des informations personnelles.",
           skills: ['Vocabulaire de base (500+ mots)', 'Présent simple', 'Présentations et salutations', 'Chiffres, dates et heures', 'Objets du quotidien'],
           outcomes: ['Te présenter et présenter les autres', 'Remplir des formulaires simples', 'Comprendre des phrases parlées basiques', 'Écrire de courts messages personnels'],
         },
         {
-          code: '2', name: 'Intermédiaire', duration: '4 mois',
+          code: '2', name: 'Intermédiaire', duration: 'par mois',
           description: "Développe la capacité à gérer la plupart des situations du quotidien et à produire un texte cohérent sur des sujets familiers.",
           skills: ['Structures de phrases complexes', "Expression d'opinions", 'Narration et description', 'Contextes professionnels', 'Lecture de textes authentiques'],
           outcomes: ['Gérer la plupart des situations de voyage', 'Décrire des expériences et des événements', "Exprimer des opinions sur des sujets abstraits", 'Écrire des lettres et messages personnels'],
         },
         {
-          code: '3', name: 'Avancé', duration: '5 mois',
+          code: '3', name: 'Avancé', duration: 'par mois',
           description: "Exprime des idées avec aisance et précision. Ce niveau avancé se concentre sur l'anglais académique, professionnel et spécialisé.",
           skills: ['Structures grammaticales avancées', 'Rédaction académique et professionnelle', 'Compréhension orale complexe', 'Débat et argumentation', 'Vocabulaire nuancé'],
           outcomes: ['Comprendre des textes complexes', 'Communiquer avec fluidité', 'Produire un texte clair et détaillé', 'Participer activement à des discussions professionnelles'],
@@ -173,9 +173,9 @@ const TRANSLATIONS = {
       whatsapp: 'Register via WhatsApp',
       levelsTitle: 'Available Levels',
       levels: [
-        { name: 'Beginner', duration: '3 months', highlight: false },
-        { name: 'Intermediate', duration: '4 months', highlight: true },
-        { name: 'Advanced', duration: '5 months', highlight: false },
+        { name: 'Beginner', duration: 'per month', highlight: false },
+        { name: 'Intermediate', duration: 'per month', highlight: true },
+        { name: 'Advanced', duration: 'per month', highlight: false },
       ],
       placement: 'Free placement test included — 20 min',
     },
@@ -211,9 +211,9 @@ const TRANSLATIONS = {
       sub: 'Structured programs for measurable progress.',
       viewAll: 'View All Programs',
       levels: [
-        { code: '1', name: 'Beginner', description: 'Learn the basics of everyday communication.', duration: '3 months' },
-        { code: '2', name: 'Intermediate', description: 'Handle most everyday situations with confidence.', duration: '4 months' },
-        { code: '3', name: 'Advanced', description: 'Express ideas with precision and fluency.', duration: '5 months' },
+        { code: '1', name: 'Beginner', description: 'Learn the basics of everyday communication.', duration: 'per month' },
+        { code: '2', name: 'Intermediate', description: 'Handle most everyday situations with confidence.', duration: 'per month' },
+        { code: '3', name: 'Advanced', description: 'Express ideas with precision and fluency.', duration: 'per month' },
       ],
     },
     cta: {
@@ -279,19 +279,19 @@ const TRANSLATIONS = {
       ctaSecondary: 'Register Now',
       programs: [
         {
-          code: '1', name: 'Beginner', duration: '3 months',
+          code: '1', name: 'Beginner', duration: 'per month',
           description: "An introduction to English for complete beginners. You will develop the ability to introduce yourself, ask and answer questions about personal details.",
           skills: ['Basic vocabulary (500+ words)', 'Simple present tense', 'Introductions and greetings', 'Numbers, dates, and time', 'Classroom and everyday objects'],
           outcomes: ['Introduce yourself and others', 'Fill in simple forms', 'Understand basic spoken phrases', 'Write short personal messages'],
         },
         {
-          code: '2', name: 'Intermediate', duration: '4 months',
+          code: '2', name: 'Intermediate', duration: 'per month',
           description: 'Develop the ability to handle most everyday situations and produce connected text on familiar topics. A major milestone in language development.',
           skills: ['Complex sentence structures', 'Opinion expression', 'Narrative and description', 'Work and professional contexts', 'Reading authentic texts'],
           outcomes: ['Handle most travel situations', 'Describe experiences and events', 'Express opinions on abstract topics', 'Write personal letters and messages'],
         },
         {
-          code: '3', name: 'Advanced', duration: '5 months',
+          code: '3', name: 'Advanced', duration: 'per month',
           description: 'Express ideas fluently, spontaneously, and with precision. This level focuses on academic, professional, and specialized language use.',
           skills: ['Advanced grammar structures', 'Academic and professional writing', 'Complex listening comprehension', 'Debate and argumentation', 'Nuanced vocabulary'],
           outcomes: ['Understand complex texts', 'Communicate fluently with native speakers', 'Produce clear, detailed text on complex subjects', 'Participate actively in professional discussions'],
