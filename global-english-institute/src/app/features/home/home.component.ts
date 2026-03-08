@@ -23,16 +23,16 @@ import { Testimonial } from '../../core/models';
             <div>
               <div class="inline-flex items-center gap-2 bg-primary-50 text-primary-700 text-xs font-medium px-3 py-1.5 rounded-full mb-6">
                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                100% Online Learning
+                Courses starting April 6, 2026
               </div>
               <h1 class="text-4xl font-bold text-neutral-900 sm:text-5xl lg:text-5xl xl:text-6xl leading-tight">
-                Master English.<br />
-                <span class="text-primary-600">At Your Own Pace.</span>
+                Boostez votre avenir<br />
+                <span class="text-primary-600">avec l'anglais !</span>
               </h1>
               <p class="mt-6 text-lg text-neutral-500 leading-relaxed">
-                CEFR-aligned online English programs designed for professionals and learners worldwide. Start with a free placement test to find your level.
+                L'anglais ne s'apprend pas… il se pratique. Plonge dans un environnement dynamique où tu parles et échanges à chaque séance.
               </p>
               <div class="mt-8 flex flex-col sm:flex-row gap-3">
                 <a routerLink="/placement-test" class="btn-primary px-7 py-3.5 text-base">
@@ -58,7 +58,7 @@ import { Testimonial } from '../../core/models';
                   </div>
                 </div>
                 <p class="text-sm text-neutral-500">
-                  <span class="font-semibold text-neutral-900">2,400+</span> students enrolled globally
+                  <span class="font-semibold text-neutral-900">2 first sessions free</span> — start with confidence
                 </p>
               </div>
             </div>
@@ -145,7 +145,7 @@ import { Testimonial } from '../../core/models';
       <section class="py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center mb-14">
-            <h2 class="section-heading">Why Choose Global English Institute?</h2>
+            <h2 class="section-heading">Why Choose Talkr by Easy Learning?</h2>
             <p class="section-subheading mx-auto mt-4">Everything you need to achieve English fluency, delivered entirely online.</p>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -254,9 +254,10 @@ import { Testimonial } from '../../core/models';
       <section class="py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="bg-primary-600 rounded-2xl p-10 md:p-14 text-center">
-            <h2 class="text-3xl font-bold text-white sm:text-4xl">Ready to Find Your English Level?</h2>
+            <h2 class="text-3xl font-bold text-white sm:text-4xl">Ici, tu ne mémorises pas l'anglais.</h2>
+            <p class="mt-2 text-xl font-semibold text-primary-100">Tu le vis. Tu le pratiques. Tu le maîtrises.</p>
             <p class="mt-4 text-primary-100 max-w-xl mx-auto text-lg">
-              Take our free CEFR-aligned placement test. It takes 30–45 minutes and gives you an accurate assessment of your skills.
+              2 premières séances offertes pour démarrer en confiance. Inscriptions ouvertes — cours débutant le 6 avril 2026.
             </p>
             <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a routerLink="/placement-test" class="inline-flex items-center justify-center px-8 py-3.5 rounded-lg bg-white text-primary-600 font-semibold text-base hover:bg-primary-50 transition-colors">
@@ -286,42 +287,42 @@ export class HomeComponent implements OnInit {
   ];
 
   stats = [
-    { value: '2,400+', label: 'Students Enrolled' },
+    { value: '15 000 FCFA', label: 'Per Month' },
+    { value: '2', label: 'Free Sessions Offered' },
     { value: '5', label: 'CEFR Levels Covered' },
-    { value: '98%', label: 'Satisfaction Rate' },
-    { value: '40+', label: 'Countries Reached' },
+    { value: '6 Avril', label: 'Course Start Date' },
   ];
 
   features = [
     {
-      title: 'CEFR-Aligned Curriculum',
-      description: 'All programs follow the Common European Framework of Reference for Languages, ensuring internationally recognized qualifications.',
-      icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
+      title: 'Améliore rapidement ton niveau',
+      description: 'Progress quickly through structured, CEFR-aligned lessons designed to move you from one level to the next with confidence.',
+      icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
     },
     {
-      title: 'Expert Instructors',
-      description: 'Learn from certified English language teachers with years of experience in online instruction and adult learning.',
-      icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
+      title: 'Parle avec aisance et confiance',
+      description: 'Speak with more ease and confidence — every session is designed around real conversation and active practice.',
+      icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z',
     },
     {
-      title: 'Flexible Scheduling',
-      description: 'Study at your own pace with flexible online sessions designed around your schedule, not the other way around.',
-      icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
+      title: 'Activités interactives en ligne',
+      description: 'Practice online with interactive activities built for digital learners — exercises, speaking tasks, and live feedback every session.',
+      icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
     },
     {
-      title: 'Free Placement Testing',
-      description: 'Our CEFR-aligned placement test accurately evaluates your reading, grammar, listening, writing, and speaking skills.',
-      icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2',
+      title: 'Communauté motivée',
+      description: 'Join a motivated community and progress every week alongside learners who share your goals and energy.',
+      icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
     },
     {
-      title: 'All Four Skills',
-      description: 'Comprehensive training covering reading, writing, listening, and speaking — the complete English language skillset.',
-      icon: 'M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129',
+      title: '2 premières séances offertes',
+      description: '2 first sessions are completely free — start with confidence, no commitment required until you\'re ready to enroll.',
+      icon: 'M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7',
     },
     {
-      title: 'Progress Tracking',
-      description: 'Monitor your progress with detailed assessments and receive personalized feedback from your instructor.',
-      icon: 'M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z',
+      title: '15 000 FCFA / mois',
+      description: 'Affordable monthly pricing at 15,000 FCFA — professional English training that fits your budget.',
+      icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
     },
   ];
 

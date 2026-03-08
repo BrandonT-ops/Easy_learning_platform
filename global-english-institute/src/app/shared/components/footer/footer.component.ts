@@ -22,7 +22,7 @@ import { WebsiteSettingsService } from '../../../core/services/website-settings.
               <span class="text-white font-semibold">{{ siteName() }}</span>
             </div>
             <p class="text-sm text-neutral-400 leading-relaxed max-w-xs">
-              Professional online English language training aligned with CEFR standards. Learn from anywhere, at your own pace.
+              L'anglais ne s'apprend pas… il se pratique. Learn from anywhere, at your own pace. Courses starting April 6, 2026.
             </p>
             <div class="flex items-center gap-3 mt-4">
               <a href="#" class="text-neutral-400 hover:text-white transition-colors" aria-label="LinkedIn">
@@ -72,7 +72,7 @@ import { WebsiteSettingsService } from '../../../core/services/website-settings.
             &copy; {{ currentYear }} {{ siteName() }}. All rights reserved.
           </p>
           <p class="text-xs text-neutral-500">
-            CEFR-aligned online English training
+            Talkr by Easy Learning — 651 31 60 26
           </p>
         </div>
       </div>
@@ -80,7 +80,7 @@ import { WebsiteSettingsService } from '../../../core/services/website-settings.
   `
 })
 export class FooterComponent implements OnInit {
-  siteName = signal('Global English Institute');
+  siteName = signal('Talkr by Easy Learning');
   currentYear = new Date().getFullYear();
 
   constructor(private settingsService: WebsiteSettingsService) {}

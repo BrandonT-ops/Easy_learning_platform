@@ -91,7 +91,7 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
 
           <section>
             <h2 class="text-lg font-semibold text-neutral-900 mb-3">6. Data Deletion Requests</h2>
-            <p>To request deletion of your personal data, email <strong>privacy&#64;globalenglishinstitute.com</strong> with the subject "Data Deletion Request." We will process your request within 30 days.</p>
+            <p>To request deletion of your personal data, email <strong>privacy&#64;talkrbyeasylearning.com</strong> with the subject "Data Deletion Request." We will process your request within 30 days.</p>
           </section>
 
         </div>

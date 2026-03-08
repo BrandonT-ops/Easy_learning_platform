@@ -23,7 +23,7 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
 
           <section>
             <h2 class="text-lg font-semibold text-neutral-900 mb-3">1. Introduction</h2>
-            <p>Global English Institute ("we," "our," or "us") is committed to protecting your personal data. This Privacy Policy explains how we collect, use, and protect information about you when you use our website and services.</p>
+            <p>Talkr by Easy Learning ("we," "our," or "us") is committed to protecting your personal data. This Privacy Policy explains how we collect, use, and protect information about you when you use our website and services.</p>
           </section>
 
           <section>
@@ -96,7 +96,7 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
           <section>
             <h2 class="text-lg font-semibold text-neutral-900 mb-3">9. Contact</h2>
             <p>To exercise your rights or for any privacy-related enquiry, contact us at:</p>
-            <p class="mt-2"><strong>Email:</strong> privacy&#64;globalenglishinstitute.com</p>
+            <p class="mt-2"><strong>Email:</strong> privacy&#64;talkrbyeasylearning.com</p>
           </section>
 
         </div>

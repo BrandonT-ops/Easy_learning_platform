@@ -15,11 +15,11 @@ export class WebsiteSettingsService {
 
   private readonly defaultSettings: WebsiteSettings = {
     id: '',
-    site_name: 'Global English Institute',
-    tagline: 'Professional Online English Language Training',
+    site_name: 'Talkr by Easy Learning',
+    tagline: "L'anglais ne s'apprend pas... il se pratique.",
     primary_color: '#2563eb',
-    contact_email: 'info@globalenglishinstitute.com',
-    phone: '+1 (555) 000-0000',
+    contact_email: 'info@talkrbyeasylearning.com',
+    phone: '651 31 60 26',
     updated_at: new Date().toISOString(),
   };
 
@@ -65,6 +65,6 @@ export class WebsiteSettingsService {
   }
 
   getSiteName(): string {
-    return this._settings()?.site_name ?? 'Global English Institute';
+    return this._settings()?.site_name ?? 'Talkr by Easy Learning';
   }
 }

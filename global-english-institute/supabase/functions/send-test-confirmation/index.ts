@@ -61,7 +61,7 @@ serve(async (req) => {
 <body>
   <div class="container">
     <div class="header">
-      <h1>Global English Institute</h1>
+      <h1>Talkr by Easy Learning</h1>
       <p>Placement Test Results</p>
     </div>
     <div class="body">
@@ -92,8 +92,8 @@ serve(async (req) => {
       </div>
     </div>
     <div class="footer">
-      <p>Global English Institute &bull; Professional Online English Language Training</p>
-      <p style="margin-top: 4px;">If you have questions, contact us at info@globalenglishinstitute.com</p>
+      <p>Talkr by Easy Learning &bull; Professional Online English Language Training</p>
+      <p style="margin-top: 4px;">If you have questions, contact us at info@talkrbyeasylearning.com</p>
     </div>
   </div>
 </body>
@@ -107,7 +107,7 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Global English Institute <noreply@globalenglishinstitute.com>',
+        from: 'Talkr by Easy Learning <noreply@talkrbyeasylearning.com>',
         to: [payload.email],
         subject: `Your Placement Test Results — Level ${payload.cefr_level}`,
         html: htmlContent,

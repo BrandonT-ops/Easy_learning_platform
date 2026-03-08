@@ -18,6 +18,10 @@ create policy "Users can view own profile"
   on profiles for select
   using (auth.uid() = id);
 
+create policy "Users can insert own profile"
+  on profiles for insert
+  with check (auth.uid() = id);
+
 create policy "Users can update own profile"
   on profiles for update
   using (auth.uid() = id);
@@ -49,11 +53,11 @@ create trigger on_auth_user_created
 -- WEBSITE SETTINGS
 create table if not exists website_settings (
   id uuid primary key default gen_random_uuid(),
-  site_name text default 'Global English Institute',
-  tagline text default 'Professional Online English Language Training',
+  site_name text default 'Talkr by Easy Learning',
+  tagline text default 'L''anglais ne s''apprend pas... il se pratique.',
   primary_color text default '#2563eb',
-  contact_email text default 'info@globalenglishinstitute.com',
-  phone text default '+1 (555) 000-0000',
+  contact_email text default 'info@talkrbyeasylearning.com',
+  phone text default '651 31 60 26',
   updated_at timestamp with time zone default now()
 );
 
@@ -75,11 +79,11 @@ create policy "Admins can update website settings"
 -- Insert default settings row
 insert into website_settings (site_name, tagline, primary_color, contact_email, phone)
 values (
-  'Global English Institute',
-  'Professional Online English Language Training',
+  'Talkr by Easy Learning',
+  'L''anglais ne s''apprend pas... il se pratique.',
   '#2563eb',
-  'info@globalenglishinstitute.com',
-  '+1 (555) 000-0000'
+  'info@talkrbyeasylearning.com',
+  '651 31 60 26'
 ) on conflict do nothing;
 
 
