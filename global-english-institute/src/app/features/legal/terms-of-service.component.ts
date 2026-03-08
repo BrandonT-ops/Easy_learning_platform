@@ -23,12 +23,12 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
 
           <section>
             <h2 class="text-lg font-semibold text-neutral-900 mb-3">1. Acceptance of Terms</h2>
-            <p>By accessing or using the Global English Institute website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, you may not use our services.</p>
+            <p>By accessing or using the Talkr by Easy Learning website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, you may not use our services.</p>
           </section>
 
           <section>
             <h2 class="text-lg font-semibold text-neutral-900 mb-3">2. Services Description</h2>
-            <p>Global English Institute provides online English language education services including placement testing, enrollment in online programs, and access to educational materials. All services are delivered online.</p>
+            <p>Talkr by Easy Learning provides online English language education services including placement testing, enrollment in online programs, and access to educational materials. All services are delivered online.</p>
           </section>
 
           <section>
@@ -55,12 +55,12 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
 
           <section>
             <h2 class="text-lg font-semibold text-neutral-900 mb-3">6. Intellectual Property</h2>
-            <p>All content on this website, including course materials, test questions, and instructional content, is the intellectual property of Global English Institute and is protected by copyright law. Unauthorized reproduction or distribution is prohibited.</p>
+            <p>All content on this website, including course materials, test questions, and instructional content, is the intellectual property of Talkr by Easy Learning and is protected by copyright law. Unauthorized reproduction or distribution is prohibited.</p>
           </section>
 
           <section>
             <h2 class="text-lg font-semibold text-neutral-900 mb-3">7. Limitation of Liability</h2>
-            <p>Global English Institute shall not be liable for any indirect, incidental, special, or consequential damages resulting from your use of, or inability to use, our services. Our liability is limited to the amount paid for services in the preceding 3 months.</p>
+            <p>Talkr by Easy Learning shall not be liable for any indirect, incidental, special, or consequential damages resulting from your use of, or inability to use, our services. Our liability is limited to the amount paid for services in the preceding 3 months.</p>
           </section>
 
           <section>
@@ -75,7 +75,7 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
 
           <section>
             <h2 class="text-lg font-semibold text-neutral-900 mb-3">10. Contact</h2>
-            <p>For questions about these Terms of Service, contact us at: <strong>legal&#64;globalenglishinstitute.com</strong></p>
+            <p>For questions about these Terms of Service, contact us at: <strong>legal&#64;talkrbyeasylearning.com</strong></p>
           </section>
 
         </div>

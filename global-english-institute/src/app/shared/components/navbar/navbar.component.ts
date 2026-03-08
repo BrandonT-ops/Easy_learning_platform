@@ -84,7 +84,7 @@ import { WebsiteSettingsService } from '../../../core/services/website-settings.
 export class NavbarComponent implements OnInit {
   scrolled = signal(false);
   menuOpen = signal(false);
-  siteName = signal('Global English Institute');
+  siteName = signal('Talkr by Easy Learning');
 
   constructor(private settingsService: WebsiteSettingsService) {}
 

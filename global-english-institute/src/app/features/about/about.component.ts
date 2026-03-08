@@ -20,9 +20,9 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
               <span>/</span>
               <span class="text-neutral-600">About</span>
             </nav>
-            <h1 class="text-4xl font-bold text-neutral-900">About Global English Institute</h1>
+            <h1 class="text-4xl font-bold text-neutral-900">About Talkr by Easy Learning</h1>
             <p class="mt-4 text-lg text-neutral-500">
-              A professional online English language institution dedicated to accessible, high-quality language education.
+              Une école d'anglais en ligne où l'anglais ne s'apprend pas… il se pratique. A dynamic online English school built around conversation and real practice.
             </p>
           </div>
         </div>
@@ -40,7 +40,7 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
               </div>
               <h2 class="text-2xl font-bold text-neutral-900 mb-3">Our Mission</h2>
               <p class="text-neutral-500 leading-relaxed">
-                To provide accessible, high-quality English language education to learners worldwide through a structured, CEFR-aligned online learning environment. We believe that language education should be measurable, effective, and available to anyone with an internet connection.
+                To make English accessible to everyone through a dynamic, practice-based online learning environment. At Talkr by Easy Learning, we believe English is not memorized — it is lived, practiced, and mastered through real interaction every session.
               </p>
             </div>
             <div>
@@ -52,7 +52,7 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
               </div>
               <h2 class="text-2xl font-bold text-neutral-900 mb-3">Our Vision</h2>
               <p class="text-neutral-500 leading-relaxed">
-                To be the leading online platform for English language acquisition, recognized globally for the quality of instruction, accuracy of assessment, and the professional outcomes achieved by our students. We envision a world where language is never a barrier to opportunity.
+                To be the go-to online English learning platform for French-speaking learners — recognized for the confidence and fluency our students gain. We envision a world where language is never a barrier to opportunity, and where every learner speaks English with ease.
               </p>
             </div>
           </div>

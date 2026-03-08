@@ -32,7 +32,7 @@ import { WebsiteSettings } from '../../../core/models';
                 <input id="site_name" name="site_name" type="text" required
                        [(ngModel)]="form.site_name"
                        class="form-input"
-                       placeholder="Global English Institute" />
+                       placeholder="Talkr by Easy Learning" />
                 <p class="text-xs text-neutral-400 mt-1">Displayed in navigation, emails, and browser tab.</p>
               </div>
 
@@ -58,7 +58,7 @@ import { WebsiteSettings } from '../../../core/models';
                 <input id="phone" name="phone" type="tel"
                        [(ngModel)]="form.phone"
                        class="form-input"
-                       placeholder="+1 (555) 000-0000" />
+                       placeholder="651 31 60 26" />
               </div>
 
               <div>

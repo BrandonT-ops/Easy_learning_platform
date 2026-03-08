@@ -18,7 +18,7 @@ import { AuthService } from '../../../core/services/auth.service';
             </svg>
           </div>
           <h1 class="text-xl font-bold text-neutral-900">Admin Access</h1>
-          <p class="text-sm text-neutral-400 mt-1">Global English Institute</p>
+          <p class="text-sm text-neutral-400 mt-1">Talkr by Easy Learning</p>
         </div>
 
         <div class="card p-6">

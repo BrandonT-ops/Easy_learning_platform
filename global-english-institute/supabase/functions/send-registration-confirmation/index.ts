@@ -55,12 +55,12 @@ serve(async (req) => {
 <body>
   <div class="container">
     <div class="header">
-      <h1>Global English Institute</h1>
+      <h1>Talkr by Easy Learning</h1>
       <p>Registration Confirmation</p>
     </div>
     <div class="body">
       <p style="font-size: 14px; color: #374151;">Dear ${payload.full_name},</p>
-      <p style="font-size: 14px; color: #6b7280;">Thank you for registering with Global English Institute. We have received your registration request and will be in touch shortly.</p>
+      <p style="font-size: 14px; color: #6b7280;">Thank you for registering with Talkr by Easy Learning. We have received your registration request and will be in touch shortly.</p>
 
       <h3 style="font-size: 13px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 24px;">Registration Summary</h3>
       <div class="detail-row"><span class="detail-label">Name</span><span class="detail-value">${payload.full_name}</span></div>
@@ -76,8 +76,8 @@ serve(async (req) => {
       <p style="font-size: 13px; color: #9ca3af;">If you have not already taken our placement test, we recommend doing so to ensure we place you in the right program.</p>
     </div>
     <div class="footer">
-      <p>Global English Institute &bull; Professional Online English Language Training</p>
-      <p style="margin-top: 4px;">Questions? Contact us at info@globalenglishinstitute.com</p>
+      <p>Talkr by Easy Learning &bull; L'anglais ne s'apprend pas... il se pratique.</p>
+      <p style="margin-top: 4px;">Questions? Contact us at info@talkrbyeasylearning.com</p>
     </div>
   </div>
 </body>
@@ -91,9 +91,9 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Global English Institute <noreply@globalenglishinstitute.com>',
+        from: 'Talkr by Easy Learning <noreply@talkrbyeasylearning.com>',
         to: [payload.email],
-        subject: 'Registration Received — Global English Institute',
+        subject: 'Registration Received — Talkr by Easy Learning',
         html: htmlContent,
       }),
     });

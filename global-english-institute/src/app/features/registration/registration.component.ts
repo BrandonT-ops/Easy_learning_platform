@@ -148,7 +148,7 @@ interface RegistrationForm {
                              class="mt-0.5 rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
                              #consentInput="ngModel" />
                       <span class="text-sm text-neutral-600">
-                        I consent to Global English Institute collecting and processing my personal data to process this registration request and contact me regarding programs and availability.
+                        I consent to Talkr by Easy Learning collecting and processing my personal data to process this registration request and contact me regarding programs and availability.
                         I have read and agree to the
                         <a routerLink="/privacy-policy" class="text-primary-600 hover:underline" target="_blank">Privacy Policy</a>,
                         <a routerLink="/terms-of-service" class="text-primary-600 hover:underline" target="_blank">Terms of Service</a>, and
