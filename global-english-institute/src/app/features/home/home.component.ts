@@ -1,9 +1,10 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { TestimonialsService } from '../../core/services/testimonials.service';
+import { LanguageService } from '../../core/services/language.service';
 import { Testimonial } from '../../core/models';
 
 @Component({
@@ -25,104 +26,96 @@ import { Testimonial } from '../../core/models';
                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                Courses starting April 6, 2026
+                {{ ls.t().hero.badge }}
               </div>
               <h1 class="text-4xl font-bold text-neutral-900 sm:text-5xl lg:text-5xl xl:text-6xl leading-tight">
-                Boostez votre avenir<br />
-                <span class="text-primary-600">avec l'anglais !</span>
+                {{ ls.t().hero.title }}<br />
+                <span class="text-primary-600">{{ ls.t().hero.titleHighlight }}</span>
               </h1>
               <p class="mt-6 text-lg text-neutral-500 leading-relaxed">
-                L'anglais ne s'apprend pas… il se pratique. Plonge dans un environnement dynamique où tu parles et échanges à chaque séance.
+                {{ ls.t().hero.description }}
               </p>
               <div class="mt-8 flex flex-col sm:flex-row gap-3">
                 <a routerLink="/placement-test" class="btn-primary px-7 py-3.5 text-base">
-                  Take Free Placement Test
+                  {{ ls.t().hero.ctaPrimary }}
                 </a>
                 <a routerLink="/programs" class="btn-secondary px-7 py-3.5 text-base">
-                  View Programs
+                  {{ ls.t().hero.ctaSecondary }}
                 </a>
               </div>
-              <div class="mt-10 flex items-center gap-6">
-                <div class="flex -space-x-2">
-                  <div class="w-8 h-8 rounded-full bg-blue-200 border-2 border-white flex items-center justify-center">
-                    <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
-                  </div>
-                  <div class="w-8 h-8 rounded-full bg-blue-300 border-2 border-white flex items-center justify-center">
-                    <svg class="w-4 h-4 text-blue-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
-                  </div>
-                  <div class="w-8 h-8 rounded-full bg-blue-400 border-2 border-white flex items-center justify-center">
-                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
-                  </div>
-                  <div class="w-8 h-8 rounded-full bg-primary-600 border-2 border-white flex items-center justify-center">
-                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
-                  </div>
+              <div class="mt-10 flex items-center gap-4">
+                <div class="w-10 h-10 bg-amber-400 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                  </svg>
                 </div>
                 <p class="text-sm text-neutral-500">
-                  <span class="font-semibold text-neutral-900">2 first sessions free</span> — start with confidence
+                  <span class="font-semibold text-neutral-900">{{ ls.t().hero.socialProof }}</span>
+                  — {{ ls.t().hero.socialProofSub }}
                 </p>
               </div>
             </div>
 
-            <!-- Right: Visual Panel (desktop only) -->
+            <!-- Right: Offer Card (desktop only) -->
             <div class="hidden lg:flex flex-col gap-4">
 
-              <!-- CEFR Levels Card -->
-              <div class="card p-6 shadow-sm">
+              <!-- Offer Card -->
+              <div class="card p-6 shadow-sm border-2 border-primary-100">
                 <div class="flex items-center justify-between mb-4">
-                  <p class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">CEFR Levels Covered</p>
-                  <span class="badge badge-blue text-xs">5 Levels</span>
+                  <p class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">{{ ls.t().offerCard.title }}</p>
+                  <span class="badge badge-blue text-xs">Talkr</span>
                 </div>
-                <div class="space-y-2.5">
-                  @for (level of heroLevels; track level.code) {
-                    <div class="flex items-center gap-3 p-2.5 rounded-lg"
-                         [class.bg-primary-50]="level.highlight"
-                         [class.border]="level.highlight"
-                         [class.border-primary-200]="level.highlight">
-                      <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-bold"
-                           [class.bg-primary-600]="level.highlight"
-                           [class.text-white]="level.highlight"
-                           [class.bg-neutral-100]="!level.highlight"
-                           [class.text-neutral-500]="!level.highlight">
-                        {{ level.code }}
-                      </div>
-                      <div class="min-w-0 flex-1">
-                        <p class="text-sm font-medium text-neutral-900">{{ level.name }}</p>
-                        <p class="text-xs text-neutral-400">{{ level.duration }}</p>
-                      </div>
-                      @if (level.highlight) {
-                        <svg class="w-4 h-4 text-primary-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                        </svg>
-                      }
-                    </div>
-                  }
+                <div class="flex items-baseline gap-1 mb-4">
+                  <span class="text-3xl font-bold text-primary-600">{{ ls.t().offerCard.price }}</span>
+                  <span class="text-sm text-neutral-400">{{ ls.t().offerCard.pricePer }}</span>
                 </div>
-                <div class="mt-5 pt-4 border-t border-neutral-100 flex items-center gap-2">
-                  <svg class="w-4 h-4 text-primary-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <p class="text-xs text-neutral-500">Free placement test included — find your level in 30 minutes</p>
+                <div class="space-y-2.5 mb-5">
+                  <div class="flex items-center gap-2 text-sm text-neutral-700">
+                    <svg class="w-4 h-4 text-amber-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="font-medium">{{ ls.t().offerCard.freeSessions }}</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm text-neutral-700">
+                    <svg class="w-4 h-4 text-primary-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                    </svg>
+                    {{ ls.t().offerCard.startDate }}
+                  </div>
+                  <div class="flex items-center gap-2 text-sm text-neutral-700">
+                    <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    {{ ls.t().offerCard.whatsapp }}: 651 31 60 26
+                  </div>
+                </div>
+                <div class="border-t border-neutral-100 pt-4">
+                  <p class="text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-3">{{ ls.t().offerCard.levelsTitle }}</p>
+                  <div class="space-y-2">
+                    @for (level of ls.t().offerCard.levels; track level.name) {
+                      <div class="flex items-center justify-between p-2.5 rounded-lg"
+                           [class.bg-primary-50]="level.highlight"
+                           [class.border]="level.highlight"
+                           [class.border-primary-200]="level.highlight">
+                        <span class="text-sm font-medium text-neutral-900">{{ level.name }}</span>
+                        <span class="text-xs text-neutral-400">{{ level.duration }}</span>
+                      </div>
+                    }
+                  </div>
                 </div>
               </div>
 
-              <!-- Mini Stats Row -->
-              <div class="grid grid-cols-3 gap-3">
-                <div class="card p-4 text-center">
-                  <p class="text-xl font-bold text-primary-600">A1</p>
-                  <p class="text-xs text-neutral-500 mt-0.5">Beginner</p>
+              <!-- Placement test note -->
+              <div class="card p-4 flex items-center gap-3">
+                <div class="w-8 h-8 bg-primary-50 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-4 h-4 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                 </div>
-                <div class="card p-4 text-center">
-                  <p class="text-xl font-bold text-primary-600">C1</p>
-                  <p class="text-xs text-neutral-500 mt-0.5">Advanced</p>
-                </div>
-                <div class="card p-4 text-center">
-                  <p class="text-xl font-bold text-primary-600">98%</p>
-                  <p class="text-xs text-neutral-500 mt-0.5">Satisfaction</p>
-                </div>
+                <p class="text-xs text-neutral-500">{{ ls.t().offerCard.placement }}</p>
               </div>
 
             </div>
-
           </div>
         </div>
       </section>
@@ -131,7 +124,7 @@ import { Testimonial } from '../../core/models';
       <section class="bg-neutral-50 border-y border-neutral-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-            @for (stat of stats; track stat.label) {
+            @for (stat of ls.t().stats; track stat.label) {
               <div class="text-center">
                 <div class="text-3xl font-bold text-primary-600">{{ stat.value }}</div>
                 <div class="text-sm text-neutral-500 mt-1">{{ stat.label }}</div>
@@ -145,11 +138,11 @@ import { Testimonial } from '../../core/models';
       <section class="py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center mb-14">
-            <h2 class="section-heading">Why Choose Talkr by Easy Learning?</h2>
-            <p class="section-subheading mx-auto mt-4">Everything you need to achieve English fluency, delivered entirely online.</p>
+            <h2 class="section-heading">{{ ls.t().whyChoose.heading }}</h2>
+            <p class="section-subheading mx-auto mt-4">{{ ls.t().whyChoose.sub }}</p>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            @for (feature of features; track feature.title) {
+            @for (feature of ls.t().features; track feature.title) {
               <div class="card p-6">
                 <div class="w-10 h-10 bg-primary-50 rounded-lg flex items-center justify-center mb-4">
                   <svg class="w-5 h-5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -168,20 +161,18 @@ import { Testimonial } from '../../core/models';
       <section class="py-20 bg-neutral-50 border-y border-neutral-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center mb-14">
-            <h2 class="section-heading">How It Works</h2>
-            <p class="section-subheading mx-auto mt-4">Start your English learning journey in three simple steps.</p>
+            <h2 class="section-heading">{{ ls.t().howItWorks.heading }}</h2>
+            <p class="section-subheading mx-auto mt-4">{{ ls.t().howItWorks.sub }}</p>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            @for (step of steps; track step.number) {
-              <div class="relative">
-                <div class="flex items-start gap-4">
-                  <div class="flex-shrink-0 w-10 h-10 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
-                    {{ step.number }}
-                  </div>
-                  <div>
-                    <h3 class="text-base font-semibold text-neutral-900 mb-2">{{ step.title }}</h3>
-                    <p class="text-sm text-neutral-500 leading-relaxed">{{ step.description }}</p>
-                  </div>
+            @for (step of ls.t().howItWorks.steps; track step.number) {
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                  {{ step.number }}
+                </div>
+                <div>
+                  <h3 class="text-base font-semibold text-neutral-900 mb-2">{{ step.title }}</h3>
+                  <p class="text-sm text-neutral-500 leading-relaxed">{{ step.description }}</p>
                 </div>
               </div>
             }
@@ -194,19 +185,21 @@ import { Testimonial } from '../../core/models';
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex items-end justify-between mb-10">
             <div>
-              <h2 class="section-heading">CEFR-Aligned Programs</h2>
-              <p class="text-neutral-500 mt-2 max-w-xl">Programs structured to international language standards for measurable progress.</p>
+              <h2 class="section-heading">{{ ls.t().programs.heading }}</h2>
+              <p class="text-neutral-500 mt-2 max-w-xl">{{ ls.t().programs.sub }}</p>
             </div>
             <a routerLink="/programs" class="btn-secondary hidden md:flex">
-              View All Programs
+              {{ ls.t().programs.viewAll }}
             </a>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            @for (level of cefrLevels; track level.code) {
-              <div class="card p-5 hover:border-primary-300 hover:shadow-md transition-all cursor-pointer group">
-                <div class="badge badge-blue mb-3">{{ level.code }}</div>
-                <h3 class="text-sm font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors">{{ level.name }}</h3>
-                <p class="text-xs text-neutral-500 mt-1 leading-relaxed">{{ level.description }}</p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            @for (level of ls.t().programs.levels; track level.code) {
+              <div class="card p-6 hover:border-primary-300 hover:shadow-md transition-all cursor-pointer group">
+                <div class="w-10 h-10 bg-primary-600 text-white rounded-xl flex items-center justify-center text-lg font-bold mb-4">
+                  {{ level.code }}
+                </div>
+                <h3 class="text-base font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors">{{ level.name }}</h3>
+                <p class="text-sm text-neutral-500 mt-1 leading-relaxed">{{ level.description }}</p>
                 <div class="mt-3 flex items-center gap-1 text-xs text-neutral-400">
                   <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -218,7 +211,7 @@ import { Testimonial } from '../../core/models';
           </div>
           <div class="mt-6 md:hidden">
             <a routerLink="/programs" class="btn-secondary w-full text-center">
-              View All Programs
+              {{ ls.t().programs.viewAll }}
             </a>
           </div>
         </div>
@@ -254,17 +247,15 @@ import { Testimonial } from '../../core/models';
       <section class="py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="bg-primary-600 rounded-2xl p-10 md:p-14 text-center">
-            <h2 class="text-3xl font-bold text-white sm:text-4xl">Ici, tu ne mémorises pas l'anglais.</h2>
-            <p class="mt-2 text-xl font-semibold text-primary-100">Tu le vis. Tu le pratiques. Tu le maîtrises.</p>
-            <p class="mt-4 text-primary-100 max-w-xl mx-auto text-lg">
-              2 premières séances offertes pour démarrer en confiance. Inscriptions ouvertes — cours débutant le 6 avril 2026.
-            </p>
+            <h2 class="text-3xl font-bold text-white sm:text-4xl">{{ ls.t().cta.title }}</h2>
+            <p class="mt-2 text-xl font-semibold text-primary-100">{{ ls.t().cta.subtitle }}</p>
+            <p class="mt-4 text-primary-100 max-w-xl mx-auto text-lg">{{ ls.t().cta.description }}</p>
             <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a routerLink="/placement-test" class="inline-flex items-center justify-center px-8 py-3.5 rounded-lg bg-white text-primary-600 font-semibold text-base hover:bg-primary-50 transition-colors">
-                Start Placement Test
+                {{ ls.t().cta.primary }}
               </a>
               <a routerLink="/register" class="inline-flex items-center justify-center px-8 py-3.5 rounded-lg border border-primary-400 text-white font-medium text-base hover:bg-primary-700 transition-colors">
-                Register Now
+                {{ ls.t().cta.secondary }}
               </a>
             </div>
           </div>
@@ -277,80 +268,7 @@ import { Testimonial } from '../../core/models';
 })
 export class HomeComponent implements OnInit {
   testimonials = signal<Testimonial[]>([]);
-
-  heroLevels = [
-    { code: 'A1', name: 'Beginner', duration: '3 months', highlight: false },
-    { code: 'A2', name: 'Elementary', duration: '3 months', highlight: false },
-    { code: 'B1', name: 'Intermediate', duration: '4 months', highlight: true },
-    { code: 'B2', name: 'Upper-Intermediate', duration: '5 months', highlight: false },
-    { code: 'C1', name: 'Advanced', duration: '6 months', highlight: false },
-  ];
-
-  stats = [
-    { value: '15 000 FCFA', label: 'Per Month' },
-    { value: '2', label: 'Free Sessions Offered' },
-    { value: '5', label: 'CEFR Levels Covered' },
-    { value: '6 Avril', label: 'Course Start Date' },
-  ];
-
-  features = [
-    {
-      title: 'Améliore rapidement ton niveau',
-      description: 'Progress quickly through structured, CEFR-aligned lessons designed to move you from one level to the next with confidence.',
-      icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
-    },
-    {
-      title: 'Parle avec aisance et confiance',
-      description: 'Speak with more ease and confidence — every session is designed around real conversation and active practice.',
-      icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z',
-    },
-    {
-      title: 'Activités interactives en ligne',
-      description: 'Practice online with interactive activities built for digital learners — exercises, speaking tasks, and live feedback every session.',
-      icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
-    },
-    {
-      title: 'Communauté motivée',
-      description: 'Join a motivated community and progress every week alongside learners who share your goals and energy.',
-      icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
-    },
-    {
-      title: '2 premières séances offertes',
-      description: '2 first sessions are completely free — start with confidence, no commitment required until you\'re ready to enroll.',
-      icon: 'M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7',
-    },
-    {
-      title: '15 000 FCFA / mois',
-      description: 'Affordable monthly pricing at 15,000 FCFA — professional English training that fits your budget.',
-      icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
-    },
-  ];
-
-  steps = [
-    {
-      number: '1',
-      title: 'Take the Placement Test',
-      description: 'Complete our free CEFR-aligned placement test to assess your current English level across all four skills.',
-    },
-    {
-      number: '2',
-      title: 'Choose Your Program',
-      description: 'Based on your results, select the program that matches your level and learning goals.',
-    },
-    {
-      number: '3',
-      title: 'Start Learning Online',
-      description: 'Access your classes from any device. Study with live sessions, self-paced materials, and expert feedback.',
-    },
-  ];
-
-  cefrLevels = [
-    { code: 'A1', name: 'Beginner', description: 'Learn the basics of everyday communication.', duration: '3 months' },
-    { code: 'A2', name: 'Elementary', description: 'Build confidence in simple interactions.', duration: '3 months' },
-    { code: 'B1', name: 'Intermediate', description: 'Handle most everyday situations.', duration: '4 months' },
-    { code: 'B2', name: 'Upper-Intermediate', description: 'Communicate with fluency and spontaneity.', duration: '5 months' },
-    { code: 'C1', name: 'Advanced', description: 'Express ideas with precision and flexibility.', duration: '6 months' },
-  ];
+  ls = inject(LanguageService);
 
   constructor(private testimonialsService: TestimonialsService) {}
 

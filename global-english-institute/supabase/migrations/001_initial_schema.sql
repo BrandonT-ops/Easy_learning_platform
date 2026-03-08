@@ -99,7 +99,7 @@ create table if not exists placement_tests (
   writing_score integer,
   speaking_score integer,
   total_score integer,
-  cefr_level text check (cefr_level in ('A1', 'A2', 'B1', 'B2', 'C1')),
+  cefr_level text check (cefr_level in ('Beginner', 'Intermediate', 'Advanced')),
   status text default 'pending' check (status in ('pending', 'contacted', 'enrolled', 'rejected')),
   writing_response text,
   speaking_url text,

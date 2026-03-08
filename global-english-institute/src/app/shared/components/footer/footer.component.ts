@@ -1,6 +1,7 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { WebsiteSettingsService } from '../../../core/services/website-settings.service';
+import { LanguageService } from '../../../core/services/language.service';
 
 @Component({
   selector: 'app-footer',
@@ -22,17 +23,12 @@ import { WebsiteSettingsService } from '../../../core/services/website-settings.
               <span class="text-white font-semibold">{{ siteName() }}</span>
             </div>
             <p class="text-sm text-neutral-400 leading-relaxed max-w-xs">
-              L'anglais ne s'apprend pas… il se pratique. Learn from anywhere, at your own pace. Courses starting April 6, 2026.
+              {{ ls.t().footer.tagline }}
             </p>
             <div class="flex items-center gap-3 mt-4">
               <a href="#" class="text-neutral-400 hover:text-white transition-colors" aria-label="LinkedIn">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                </svg>
-              </a>
-              <a href="#" class="text-neutral-400 hover:text-white transition-colors" aria-label="Twitter">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                 </svg>
               </a>
               <a href="#" class="text-neutral-400 hover:text-white transition-colors" aria-label="Facebook">
@@ -45,23 +41,23 @@ import { WebsiteSettingsService } from '../../../core/services/website-settings.
 
           <!-- Quick Links -->
           <div>
-            <h3 class="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Quick Links</h3>
+            <h3 class="text-white text-sm font-semibold mb-4 uppercase tracking-wider">{{ ls.t().footer.quickLinks }}</h3>
             <ul class="space-y-2">
-              <li><a routerLink="/" class="text-sm text-neutral-400 hover:text-white transition-colors">Home</a></li>
-              <li><a routerLink="/about" class="text-sm text-neutral-400 hover:text-white transition-colors">About Us</a></li>
-              <li><a routerLink="/programs" class="text-sm text-neutral-400 hover:text-white transition-colors">Programs</a></li>
-              <li><a routerLink="/placement-test" class="text-sm text-neutral-400 hover:text-white transition-colors">Placement Test</a></li>
-              <li><a routerLink="/contact" class="text-sm text-neutral-400 hover:text-white transition-colors">Contact</a></li>
+              <li><a routerLink="/" class="text-sm text-neutral-400 hover:text-white transition-colors">{{ ls.t().footer.links.home }}</a></li>
+              <li><a routerLink="/about" class="text-sm text-neutral-400 hover:text-white transition-colors">{{ ls.t().footer.links.about }}</a></li>
+              <li><a routerLink="/programs" class="text-sm text-neutral-400 hover:text-white transition-colors">{{ ls.t().footer.links.programs }}</a></li>
+              <li><a routerLink="/placement-test" class="text-sm text-neutral-400 hover:text-white transition-colors">{{ ls.t().footer.links.test }}</a></li>
+              <li><a routerLink="/contact" class="text-sm text-neutral-400 hover:text-white transition-colors">{{ ls.t().footer.links.contact }}</a></li>
             </ul>
           </div>
 
           <!-- Legal -->
           <div>
-            <h3 class="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Legal</h3>
+            <h3 class="text-white text-sm font-semibold mb-4 uppercase tracking-wider">{{ ls.t().footer.legal }}</h3>
             <ul class="space-y-2">
-              <li><a routerLink="/privacy-policy" class="text-sm text-neutral-400 hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a routerLink="/terms-of-service" class="text-sm text-neutral-400 hover:text-white transition-colors">Terms of Service</a></li>
-              <li><a routerLink="/data-usage" class="text-sm text-neutral-400 hover:text-white transition-colors">Data Usage Policy</a></li>
+              <li><a routerLink="/privacy-policy" class="text-sm text-neutral-400 hover:text-white transition-colors">{{ ls.t().footer.legalLinks.privacy }}</a></li>
+              <li><a routerLink="/terms-of-service" class="text-sm text-neutral-400 hover:text-white transition-colors">{{ ls.t().footer.legalLinks.terms }}</a></li>
+              <li><a routerLink="/data-usage" class="text-sm text-neutral-400 hover:text-white transition-colors">{{ ls.t().footer.legalLinks.data }}</a></li>
             </ul>
           </div>
 
@@ -69,7 +65,7 @@ import { WebsiteSettingsService } from '../../../core/services/website-settings.
 
         <div class="border-t border-neutral-800 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p class="text-xs text-neutral-500">
-            &copy; {{ currentYear }} {{ siteName() }}. All rights reserved.
+            &copy; {{ currentYear }} {{ siteName() }}. {{ ls.t().footer.rights }}
           </p>
           <p class="text-xs text-neutral-500">
             Talkr by Easy Learning — 651 31 60 26
@@ -82,6 +78,7 @@ import { WebsiteSettingsService } from '../../../core/services/website-settings.
 export class FooterComponent implements OnInit {
   siteName = signal('Talkr by Easy Learning');
   currentYear = new Date().getFullYear();
+  ls = inject(LanguageService);
 
   constructor(private settingsService: WebsiteSettingsService) {}
 
