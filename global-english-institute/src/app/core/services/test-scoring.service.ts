@@ -19,34 +19,30 @@ export class TestScoringService {
    * Static answer keys for MVP.
    * Future: Fetch from database table `test_questions` with correct_answer column.
    */
+  // Grammar answer key: 20 questions, auto-scored.
+  // Reading and listening are now open-ended — manually reviewed by admin.
   private readonly answerKeys: Record<string, Record<string, string>> = {
-    reading: {
-      'r1': 'b',
-      'r2': 'c',
-      'r3': 'a',
-      'r4': 'b',
-      'r5': 'd',
-      'r6': 'a',
-      'r7': 'c',
-    },
     grammar: {
       'g1': 'b',
-      'g2': 'a',
-      'g3': 'c',
+      'g2': 'b',
+      'g3': 'b',
       'g4': 'b',
-      'g5': 'd',
-      'g6': 'a',
-      'g7': 'b',
+      'g5': 'a',
+      'g6': 'b',
+      'g7': 'c',
       'g8': 'c',
-      'g9': 'a',
-      'g10': 'd',
-    },
-    listening: {
-      'l1': 'b',
-      'l2': 'a',
-      'l3': 'c',
-      'l4': 'b',
-      'l5': 'a',
+      'g9': 'd',
+      'g10': 'b',
+      'g11': 'b',
+      'g12': 'b',
+      'g13': 'b',
+      'g14': 'a',
+      'g15': 'c',
+      'g16': 'c',
+      'g17': 'b',
+      'g18': 'c',
+      'g19': 'b',
+      'g20': 'a',
     },
   };
 
@@ -54,10 +50,10 @@ export class TestScoringService {
    * Score a section based on provided answers and answer key.
    * Future: Replace answer key lookup with AI scoring API call.
    */
-  scoreSection(answers: TestAnswer[], section: 'reading' | 'grammar' | 'listening'): number {
-    const key = this.answerKeys[section];
-    if (!key) return 0;
-
+  // Grammar is the only auto-scored section (20 questions, each worth 5 pts = 100 max).
+  // Reading and listening are open-ended and manually scored by admin.
+  scoreGrammar(answers: TestAnswer[]): number {
+    const key = this.answerKeys['grammar'];
     const totalQuestions = Object.keys(key).length;
     if (totalQuestions === 0) return 0;
 
@@ -66,36 +62,27 @@ export class TestScoringService {
       return correctAnswer && a.answer.toLowerCase() === correctAnswer.toLowerCase();
     }).length;
 
-    // Normalize to section's max contribution toward 100-point total
-    const sectionWeights: Record<string, number> = {
-      reading: 35,
-      grammar: 40,
-      listening: 25,
-    };
-
-    const weight = sectionWeights[section] ?? 33;
-    return Math.round((correct / totalQuestions) * weight);
+    return Math.round((correct / totalQuestions) * 100);
   }
 
-  /**
-   * Calculate full scoring result.
-   */
-  calculateScore(
-    readingAnswers: TestAnswer[],
-    grammarAnswers: TestAnswer[],
-    listeningAnswers: TestAnswer[]
-  ): ScoringResult {
-    const readingScore = this.scoreSection(readingAnswers, 'reading');
-    const grammarScore = this.scoreSection(grammarAnswers, 'grammar');
-    const listeningScore = this.scoreSection(listeningAnswers, 'listening');
-    const totalObjectiveScore = readingScore + grammarScore + listeningScore;
+  /** @deprecated kept for compatibility — only grammar is auto-scored now */
+  scoreSection(answers: TestAnswer[], section: string): number {
+    if (section === 'grammar') return this.scoreGrammar(answers);
+    return 0;
+  }
 
+  calculateScore(
+    _readingAnswers: TestAnswer[],
+    grammarAnswers: TestAnswer[],
+    _listeningAnswers: TestAnswer[]
+  ): ScoringResult {
+    const grammarScore = this.scoreGrammar(grammarAnswers);
     return {
-      readingScore,
+      readingScore: 0,
       grammarScore,
-      listeningScore,
-      totalObjectiveScore,
-      cefrLevel: this.mapScoreToLevel(totalObjectiveScore),
+      listeningScore: 0,
+      totalObjectiveScore: grammarScore,
+      cefrLevel: this.mapScoreToLevel(grammarScore),
     };
   }
 

@@ -1,125 +1,62 @@
 import { TestQuestion } from '../../core/models';
 
+// ── Reading ──────────────────────────────────────────────────────────────────
+
 export const READING_PASSAGE = `
-The Rise of Remote Work
+In many cities around the world, public libraries are changing. In the past, people mainly visited libraries to borrow books or study quietly. Today, although these traditional functions remain important, libraries often serve a much broader purpose. They have become community spaces where people of different ages and backgrounds can learn new skills, attend events, and access technology.
 
-Over the past decade, remote work has transformed from a rare privilege to a common arrangement for millions of employees worldwide. While technology has long made remote work possible, the global events of recent years accelerated its adoption dramatically.
+One reason for this change is the rapid growth of digital information. Many people now read news online, store documents in the cloud, and use smartphones instead of printed reference books. As a result, libraries have had to rethink their role. Rather than competing with the internet, many libraries now help people use it effectively. They offer free computer access, internet connections, and training sessions on topics such as online safety, job searching, and digital communication.
 
-Studies show that remote workers often report higher levels of job satisfaction, citing flexibility and improved work-life balance as key benefits. A survey conducted in 2023 found that 68% of remote employees felt more productive at home than in a traditional office environment.
-
-However, remote work is not without its challenges. Many workers struggle with feelings of isolation, and some report difficulty separating professional responsibilities from personal life. Companies, too, face obstacles in maintaining team cohesion and organizational culture when employees are dispersed across different locations.
-
-Despite these challenges, most industry experts agree that flexible working arrangements are here to stay. Organizations are increasingly adopting hybrid models that combine remote work with periodic in-office collaboration, aiming to balance the benefits of flexibility with the advantages of face-to-face interaction.
+Another reason libraries remain valuable is that not everyone has equal access to technology. For some people, especially low-income families, students, and older adults, the library may be the only place where they can use a computer, print a document, or get help with an online form. In this way, libraries help reduce the digital divide, which is the gap between those who have easy access to modern technology and those who do not.
 `;
 
 export const READING_QUESTIONS: TestQuestion[] = [
   {
     id: 'r1',
     section: 'reading',
-    type: 'multiple_choice',
-    question: 'According to the passage, what primarily accelerated the adoption of remote work?',
-    options: [
-      'a) Advances in communication technology',
-      'b) Global events in recent years',
-      'c) Employee pressure on companies',
-      'd) Government policy changes',
-    ],
-    correct_answer: 'b',
+    type: 'open_ended',
+    question: 'What was the main traditional purpose of libraries in the past?',
     order: 1,
   },
   {
     id: 'r2',
     section: 'reading',
-    type: 'multiple_choice',
-    question: 'What percentage of remote employees in the 2023 survey felt more productive at home?',
-    options: [
-      'a) 58%',
-      'b) 75%',
-      'c) 68%',
-      'd) 82%',
-    ],
-    correct_answer: 'c',
+    type: 'open_ended',
+    question: 'According to the passage, why have libraries had to rethink their role?',
     order: 2,
   },
   {
     id: 'r3',
     section: 'reading',
-    type: 'multiple_choice',
-    question: 'Which of the following is listed as a benefit of remote work?',
-    options: [
-      'a) Improved work-life balance',
-      'b) Easier team communication',
-      'c) Stronger organizational culture',
-      'd) Reduced living costs',
-    ],
-    correct_answer: 'a',
+    type: 'open_ended',
+    question: 'What do many libraries now offer to help people use digital tools?',
     order: 3,
   },
   {
     id: 'r4',
     section: 'reading',
-    type: 'multiple_choice',
-    question: 'What does the word "dispersed" mean as used in the passage?',
-    options: [
-      'a) Connected',
-      'b) Spread across different places',
-      'c) Concentrated in one area',
-      'd) Organized systematically',
-    ],
-    correct_answer: 'b',
+    type: 'open_ended',
+    question: 'Who may especially depend on library technology services? Name at least two groups.',
     order: 4,
   },
   {
     id: 'r5',
     section: 'reading',
-    type: 'multiple_choice',
-    question: 'What solution do most organizations appear to be moving toward?',
-    options: [
-      'a) Full-time remote work for all employees',
-      'b) Returning completely to office-based work',
-      'c) Eliminating remote work policies',
-      'd) Hybrid models combining remote and in-office work',
-    ],
-    correct_answer: 'd',
+    type: 'open_ended',
+    question: "What is the 'digital divide'?",
     order: 5,
   },
-  {
-    id: 'r6',
-    section: 'reading',
-    type: 'multiple_choice',
-    question: 'Which of the following is NOT mentioned as a challenge of remote work?',
-    options: [
-      'a) Feelings of isolation',
-      'b) Difficulty with work-life separation',
-      'c) Reduced salary expectations',
-      'd) Maintaining team cohesion',
-    ],
-    correct_answer: 'a',
-    order: 6,
-  },
-  {
-    id: 'r7',
-    section: 'reading',
-    type: 'multiple_choice',
-    question: 'What is the main idea of the final paragraph?',
-    options: [
-      'a) Remote work has many unsolved problems',
-      'b) Technology will replace in-person work completely',
-      'c) Flexible work arrangements are likely to continue with hybrid models',
-      'd) Employees prefer traditional offices',
-    ],
-    correct_answer: 'c',
-    order: 7,
-  },
 ];
+
+// ── Grammar & Vocabulary ──────────────────────────────────────────────────────
 
 export const GRAMMAR_QUESTIONS: TestQuestion[] = [
   {
     id: 'g1',
     section: 'grammar',
     type: 'multiple_choice',
-    question: 'She _____ to the conference every year since 2018.',
-    options: ['a) goes', 'b) has been going', 'c) is going', 'd) went'],
+    question: 'She ___ to the market every Saturday.',
+    options: ['A. go', 'B. goes', 'C. going', 'D. gone'],
     correct_answer: 'b',
     order: 1,
   },
@@ -127,26 +64,26 @@ export const GRAMMAR_QUESTIONS: TestQuestion[] = [
     id: 'g2',
     section: 'grammar',
     type: 'multiple_choice',
-    question: 'If I _____ enough money, I would travel more often.',
-    options: ['a) had', 'b) have', 'c) would have', 'd) will have'],
-    correct_answer: 'a',
+    question: 'If I ___ enough money, I would buy a new laptop.',
+    options: ['A. have', 'B. had', 'C. will have', 'D. having'],
+    correct_answer: 'b',
     order: 2,
   },
   {
     id: 'g3',
     section: 'grammar',
     type: 'multiple_choice',
-    question: 'The report _____ by the team before the deadline.',
-    options: ['a) completed', 'b) was completing', 'c) was completed', 'd) has completed'],
-    correct_answer: 'c',
+    question: 'They have lived here ___ 2019.',
+    options: ['A. for', 'B. since', 'C. from', 'D. during'],
+    correct_answer: 'b',
     order: 3,
   },
   {
     id: 'g4',
     section: 'grammar',
     type: 'multiple_choice',
-    question: 'Despite _____ tired, she continued working.',
-    options: ['a) feel', 'b) feeling', 'c) to feel', 'd) felt'],
+    question: 'I was tired, ___ I finished the work.',
+    options: ['A. because', 'B. but', 'C. although', 'D. unless'],
     correct_answer: 'b',
     order: 4,
   },
@@ -154,40 +91,35 @@ export const GRAMMAR_QUESTIONS: TestQuestion[] = [
     id: 'g5',
     section: 'grammar',
     type: 'multiple_choice',
-    question: 'Neither the manager nor the employees _____ aware of the change.',
-    options: ['a) is', 'b) was', 'c) were', 'd) be'],
-    correct_answer: 'd',
+    question: 'The meeting was canceled ___ the manager was ill.',
+    options: ['A. because', 'B. despite', 'C. however', 'D. unless'],
+    correct_answer: 'a',
     order: 5,
   },
   {
     id: 'g6',
     section: 'grammar',
     type: 'multiple_choice',
-    question: 'Choose the sentence with the correct use of articles:',
-    options: [
-      'a) She is a honest person with a good reputation.',
-      'b) She is an honest person with a good reputation.',
-      'c) She is an honest person with an good reputation.',
-      'd) She is a honest person with an good reputation.',
-    ],
-    correct_answer: 'a',
+    question: 'This book is ___ than the one I read last week.',
+    options: ['A. interesting', 'B. more interesting', 'C. most interesting', 'D. the interesting'],
+    correct_answer: 'b',
     order: 6,
   },
   {
     id: 'g7',
     section: 'grammar',
     type: 'multiple_choice',
-    question: 'He suggested _____ an earlier flight.',
-    options: ['a) to book', 'b) booking', 'c) booked', 'd) book'],
-    correct_answer: 'b',
+    question: 'He speaks English very ___.',
+    options: ['A. good', 'B. better', 'C. well', 'D. best'],
+    correct_answer: 'c',
     order: 7,
   },
   {
     id: 'g8',
     section: 'grammar',
     type: 'multiple_choice',
-    question: 'The data _____ inconclusive, so further research is needed.',
-    options: ['a) is', 'b) are', 'c) were being', 'd) has'],
+    question: 'We ___ dinner when the phone rang.',
+    options: ['A. had', 'B. have', 'C. were having', 'D. are having'],
     correct_answer: 'c',
     order: 8,
   },
@@ -195,120 +127,162 @@ export const GRAMMAR_QUESTIONS: TestQuestion[] = [
     id: 'g9',
     section: 'grammar',
     type: 'multiple_choice',
-    question: 'By the time we arrived, the meeting _____ already.',
-    options: ['a) had finished', 'b) finished', 'c) has finished', 'd) was finishing'],
-    correct_answer: 'a',
+    question: 'By next year, she ___ her degree.',
+    options: ['A. completes', 'B. completed', 'C. will complete', 'D. will have completed'],
+    correct_answer: 'd',
     order: 9,
   },
   {
     id: 'g10',
     section: 'grammar',
     type: 'multiple_choice',
-    question: 'Which sentence is grammatically correct?',
-    options: [
-      'a) Hardly I had sat down when the phone rang.',
-      'b) Hardly had I sat down when the phone rang.',
-      'c) Hardly I sat down when the phone rang.',
-      'd) Hardly had I sat when rang the phone.',
-    ],
-    correct_answer: 'd',
+    question: "I don't know where ___.",
+    options: ['A. is he', 'B. he is', 'C. does he', 'D. he does'],
+    correct_answer: 'b',
     order: 10,
   },
+  {
+    id: 'g11',
+    section: 'grammar',
+    type: 'multiple_choice',
+    question: "The opposite of 'generous' is:",
+    options: ['A. kind', 'B. selfish', 'C. polite', 'D. honest'],
+    correct_answer: 'b',
+    order: 11,
+  },
+  {
+    id: 'g12',
+    section: 'grammar',
+    type: 'multiple_choice',
+    question: 'A person who repairs electrical systems is an ___.',
+    options: ['A. architect', 'B. electrician', 'C. accountant', 'D. mechanic'],
+    correct_answer: 'b',
+    order: 12,
+  },
+  {
+    id: 'g13',
+    section: 'grammar',
+    type: 'multiple_choice',
+    question: 'We need to ___ a decision before noon.',
+    options: ['A. do', 'B. make', 'C. take', 'D. get'],
+    correct_answer: 'b',
+    order: 13,
+  },
+  {
+    id: 'g14',
+    section: 'grammar',
+    type: 'multiple_choice',
+    question: 'Her explanation was very ___, so everyone understood.',
+    options: ['A. clear', 'B. weak', 'C. rare', 'D. narrow'],
+    correct_answer: 'a',
+    order: 14,
+  },
+  {
+    id: 'g15',
+    section: 'grammar',
+    type: 'multiple_choice',
+    question: 'He apologized ___ being late.',
+    options: ['A. of', 'B. at', 'C. for', 'D. with'],
+    correct_answer: 'c',
+    order: 15,
+  },
+  {
+    id: 'g16',
+    section: 'grammar',
+    type: 'multiple_choice',
+    question: "I've never ___ such a beautiful place.",
+    options: ['A. see', 'B. saw', 'C. seen', 'D. seeing'],
+    correct_answer: 'c',
+    order: 16,
+  },
+  {
+    id: 'g17',
+    section: 'grammar',
+    type: 'multiple_choice',
+    question: 'Neither the teacher nor the students ___ ready.',
+    options: ['A. was', 'B. were', 'C. is', 'D. be'],
+    correct_answer: 'b',
+    order: 17,
+  },
+  {
+    id: 'g18',
+    section: 'grammar',
+    type: 'multiple_choice',
+    question: 'She asked me ___ I could help her.',
+    options: ['A. what', 'B. that', 'C. if', 'D. which'],
+    correct_answer: 'c',
+    order: 18,
+  },
+  {
+    id: 'g19',
+    section: 'grammar',
+    type: 'multiple_choice',
+    question: 'The project was completed ___ schedule.',
+    options: ['A. in', 'B. on', 'C. at', 'D. by'],
+    correct_answer: 'b',
+    order: 19,
+  },
+  {
+    id: 'g20',
+    section: 'grammar',
+    type: 'multiple_choice',
+    question: 'You ___ smoke here; it\'s prohibited.',
+    options: ["A. mustn't", 'B. don\'t have to', 'C. couldn\'t', 'D. wouldn\'t'],
+    correct_answer: 'a',
+    order: 20,
+  },
 ];
+
+// ── Writing ───────────────────────────────────────────────────────────────────
+
+export const WRITING_PROMPT = `
+You recently attended a wedding or a master's degree thesis defence.
+
+Write a short text (80–120 words) describing:
+• What the event was
+• Who the event was for
+• What happened there
+• Why you found it useful or interesting
+`;
+
+// ── Listening ─────────────────────────────────────────────────────────────────
+
+export const LISTENING_SCRIPT = `Good morning, everyone. This is a reminder about Saturday's neighborhood clean-up event. We will meet at 8:30 a.m. in front of the community center and divide into small groups. Gloves and trash bags will be provided, but please bring a hat and a bottle of water, since the weather is expected to be hot. After the clean-up, around 11:30, volunteers will return to the center for a short lunch and a discussion about future environmental projects in the area. Students who participate for the full morning will receive a certificate. If you want to join, please send your name to the community office by Friday afternoon.`;
 
 export const LISTENING_QUESTIONS: TestQuestion[] = [
   {
     id: 'l1',
     section: 'listening',
-    type: 'multiple_choice',
-    question: 'What is the main topic of the audio?',
-    options: [
-      'a) Office relocation plans',
-      'b) Changes to the company meeting schedule',
-      'c) A new product launch event',
-      'd) Staff training requirements',
-    ],
-    correct_answer: 'b',
+    type: 'open_ended',
+    question: 'What is the main purpose of the announcement?',
     order: 1,
   },
   {
     id: 'l2',
     section: 'listening',
-    type: 'multiple_choice',
-    question: 'According to the audio, when will the new schedule take effect?',
-    options: [
-      'a) Next Monday',
-      'b) The following month',
-      'c) Immediately',
-      'd) After the review period',
-    ],
-    correct_answer: 'a',
+    type: 'open_ended',
+    question: 'What time does the event begin?',
     order: 2,
   },
   {
     id: 'l3',
     section: 'listening',
-    type: 'multiple_choice',
-    question: 'What does the speaker ask employees to do?',
-    options: [
-      'a) Submit a written complaint',
-      'b) Attend a mandatory briefing',
-      'c) Check the updated calendar and confirm attendance',
-      'd) Contact HR directly',
-    ],
-    correct_answer: 'c',
+    type: 'open_ended',
+    question: 'What should participants bring with them?',
     order: 3,
   },
   {
     id: 'l4',
     section: 'listening',
-    type: 'multiple_choice',
-    question: 'How does the speaker describe the new schedule?',
-    options: [
-      'a) Temporary and experimental',
-      'b) More efficient and better structured',
-      'c) Complex and difficult to follow',
-      'd) Similar to the previous arrangement',
-    ],
-    correct_answer: 'b',
+    type: 'open_ended',
+    question: 'What will happen after the clean-up?',
     order: 4,
   },
   {
     id: 'l5',
     section: 'listening',
-    type: 'multiple_choice',
-    question: 'What tone does the speaker use throughout the audio?',
-    options: [
-      'a) Concerned and uncertain',
-      'b) Professional and informative',
-      'c) Frustrated and demanding',
-      'd) Casual and informal',
-    ],
-    correct_answer: 'a',
+    type: 'open_ended',
+    question: 'Why might students be especially interested in participating?',
     order: 5,
   },
 ];
-
-export const WRITING_PROMPT = `
-Write about a time when you had to adapt to a significant change in your work, study, or personal life.
-
-Describe:
-- What the change was and why it happened
-- How you felt about it initially
-- The steps you took to adapt
-- What you learned from the experience
-
-Write 150–250 words. Focus on clarity, organisation, and appropriate use of vocabulary and grammar.
-`;
-
-export const SPEAKING_PROMPT = `
-Describe your experience learning a foreign language or a new skill.
-
-In your response, explain:
-- What you were learning and why you chose it
-- The biggest challenges you faced
-- What strategies helped you improve
-- How the experience changed you
-
-Speak for 1.5 to 2 minutes. Aim for clear pronunciation, natural fluency, and organised ideas.
-`;

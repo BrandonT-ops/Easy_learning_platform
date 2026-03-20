@@ -102,6 +102,8 @@ create table if not exists placement_tests (
   cefr_level text check (cefr_level in ('Beginner', 'Intermediate', 'Advanced')),
   status text default 'pending' check (status in ('pending', 'contacted', 'enrolled', 'rejected')),
   writing_response text,
+  reading_responses text,
+  listening_responses text,
   speaking_url text,
   created_at timestamp with time zone default now()
 );

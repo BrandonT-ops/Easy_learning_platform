@@ -30,6 +30,8 @@ export interface PlacementTest {
   status: TestStatus;
   writing_response?: string | null;
   speaking_url?: string | null;
+  reading_responses?: string | null;
+  listening_responses?: string | null;
   created_at: string;
 }
 
@@ -59,10 +61,10 @@ export interface Testimonial {
 export interface TestQuestion {
   id: string;
   section: 'reading' | 'grammar' | 'listening';
-  type: 'multiple_choice' | 'fill_blank';
+  type: 'multiple_choice' | 'fill_blank' | 'open_ended';
   question: string;
   options?: string[];
-  correct_answer: string;
+  correct_answer?: string;
   order: number;
 }
 
@@ -84,11 +86,10 @@ export interface TestSubmission {
   full_name: string;
   email: string;
   phone: string;
-  readingAnswers: TestAnswer[];
   grammarAnswers: TestAnswer[];
-  listeningAnswers: TestAnswer[];
+  readingResponses: Record<string, string>;
+  listeningResponses: Record<string, string>;
   writingResponse: string;
-  speakingBlob?: Blob;
 }
 
 export interface ScoringResult {

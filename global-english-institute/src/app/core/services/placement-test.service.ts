@@ -13,49 +13,30 @@ export class PlacementTestService {
   ) {}
 
   async submitTest(submission: TestSubmission): Promise<{ data: PlacementTest | null; error: string | null }> {
-    const readingScore = this.testScoringService.scoreSection(submission.readingAnswers, 'reading');
-    const grammarScore = this.testScoringService.scoreSection(submission.grammarAnswers, 'grammar');
-    const listeningScore = this.testScoringService.scoreSection(submission.listeningAnswers, 'listening');
-    const totalScore = readingScore + grammarScore + listeningScore;
-    const cefrLevel = this.testScoringService.mapScoreToCefr(totalScore);
-
-    let speakingUrl: string | null = null;
-
-    if (submission.speakingBlob) {
-      const fileName = `speaking_${Date.now()}_${submission.email.replace('@', '_')}.webm`;
-      const { data: uploadData, error: uploadError } = await this.supabaseService.uploadFile(
-        'speaking-recordings',
-        fileName,
-        submission.speakingBlob,
-        'audio/webm'
-      );
-
-      if (!uploadError && uploadData) {
-        speakingUrl = this.supabaseService.getPublicUrl('speaking-recordings', fileName);
-      }
-    }
+    // Only grammar is auto-scored; reading/listening/writing are reviewed by admin.
+    const grammarScore = this.testScoringService.scoreGrammar(submission.grammarAnswers);
 
     const testRecord = {
       full_name: submission.full_name,
       email: submission.email,
       phone: submission.phone,
-      reading_score: readingScore,
       grammar_score: grammarScore,
-      listening_score: listeningScore,
+      reading_score: null,
+      listening_score: null,
       writing_score: null,
       speaking_score: null,
-      total_score: totalScore,
-      cefr_level: cefrLevel,
+      total_score: grammarScore,
+      cefr_level: null,        // set by admin after full review
       status: 'pending',
       writing_response: submission.writingResponse,
-      speaking_url: speakingUrl,
+      reading_responses: JSON.stringify(submission.readingResponses),
+      listening_responses: JSON.stringify(submission.listeningResponses),
     };
 
-    const { data, error } = await this.supabaseService.supabase
+    // Use plain insert (no .select()) to avoid RLS SELECT restriction for anon users.
+    const { error } = await this.supabaseService.supabase
       .from('placement_tests')
-      .insert(testRecord)
-      .select()
-      .single();
+      .insert(testRecord);
 
     if (error) return { data: null, error: error.message };
 
@@ -65,19 +46,31 @@ export class PlacementTestService {
         body: {
           email: submission.email,
           full_name: submission.full_name,
-          reading_score: readingScore,
           grammar_score: grammarScore,
-          listening_score: listeningScore,
-          total_score: totalScore,
-          cefr_level: cefrLevel,
         }
       });
     } catch {
-      // Email failure should not block test submission
       console.warn('Failed to send confirmation email');
     }
 
-    return { data: data as PlacementTest, error: null };
+    // Return a client-constructed result (no DB SELECT needed)
+    const result: PlacementTest = {
+      id: '',
+      full_name: submission.full_name,
+      email: submission.email,
+      phone: submission.phone ?? '',
+      grammar_score: grammarScore,
+      reading_score: null,
+      listening_score: null,
+      writing_score: null,
+      speaking_score: null,
+      total_score: grammarScore,
+      cefr_level: null,
+      status: 'pending',
+      created_at: new Date().toISOString(),
+    };
+
+    return { data: result, error: null };
   }
 
   async getAllTests(filters?: { cefr_level?: string; status?: string }) {
