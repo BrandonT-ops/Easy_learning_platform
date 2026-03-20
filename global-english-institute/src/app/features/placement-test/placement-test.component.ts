@@ -1,4 +1,4 @@
-import { Component, signal, computed, OnDestroy } from '@angular/core';
+import { Component, signal, computed, inject, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,6 +6,7 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { PlacementTestService } from '../../core/services/placement-test.service';
 import { TestScoringService } from '../../core/services/test-scoring.service';
+import { LanguageService } from '../../core/services/language.service';
 import { TestAnswer, PlacementTest } from '../../core/models';
 import {
   READING_PASSAGE,
@@ -25,26 +26,14 @@ type TestStep = 'intro' | 'personal-info' | 'grammar' | 'reading' | 'writing' | 
   templateUrl: './placement-test.component.html',
 })
 export class PlacementTestComponent implements OnDestroy {
+  ls = inject(LanguageService);
+
   // Step management
   currentStep = signal<TestStep>('intro');
   steps: TestStep[] = ['intro', 'personal-info', 'grammar', 'reading', 'writing', 'listening', 'results'];
-  stepLabels: Record<string, string> = {
-    'intro': 'Introduction',
-    'personal-info': 'Your Details',
-    'grammar': 'Grammar & Vocabulary',
-    'reading': 'Reading',
-    'writing': 'Writing',
-    'listening': 'Listening',
-    'results': 'Results',
-  };
 
   // Personal info
-  personalInfo = {
-    full_name: '',
-    email: '',
-    phone: '',
-    consent: false,
-  };
+  personalInfo = { full_name: '', email: '', phone: '', consent: false };
 
   // Test data
   readingPassage = READING_PASSAGE;
@@ -60,25 +49,69 @@ export class PlacementTestComponent implements OnDestroy {
   listeningResponses: Record<string, string> = {};
   writingResponse = '';
 
-  // Text-to-Speech for listening
+  // ── Duolingo-style grammar ─────────────────────────────────────
+  currentGrammarIndex = signal(0);
+  /** briefly false during slide transition (200 ms) */
+  questionVisible = signal(true);
+  private advanceTimer: ReturnType<typeof setTimeout> | null = null;
+
+  currentGrammarQuestion = computed(() => this.grammarQuestions[this.currentGrammarIndex()]);
+  isLastGrammarQuestion = computed(() => this.currentGrammarIndex() === this.grammarQuestions.length - 1);
+  currentGrammarAnswer = computed(() => this.grammarAnswers[this.currentGrammarQuestion().id] ?? null);
+
+  /** Called when the user taps an option card */
+  selectGrammarAnswer(answer: string): void {
+    const id = this.currentGrammarQuestion().id;
+    this.grammarAnswers[id] = answer;
+    // Auto-advance after a short delay so the selection highlight is visible
+    if (this.advanceTimer) clearTimeout(this.advanceTimer);
+    this.advanceTimer = setTimeout(() => this.advanceGrammar(), 500);
+  }
+
+  advanceGrammar(): void {
+    if (this.isLastGrammarQuestion()) {
+      this.goToStep('reading');
+      return;
+    }
+    this.slideToNextGrammarQuestion();
+  }
+
+  slideToNextGrammarQuestion(): void {
+    this.questionVisible.set(false);
+    setTimeout(() => {
+      this.currentGrammarIndex.update(i => i + 1);
+      this.questionVisible.set(true);
+    }, 200);
+  }
+
+  slideToPrevGrammarQuestion(): void {
+    if (this.currentGrammarIndex() === 0) { this.prevStep(); return; }
+    this.questionVisible.set(false);
+    setTimeout(() => {
+      this.currentGrammarIndex.update(i => i - 1);
+      this.questionVisible.set(true);
+    }, 200);
+  }
+
+  // ── Text-to-Speech ─────────────────────────────────────────────
   isSpeaking = signal(false);
   showTranscript = signal(false);
   private utterance: SpeechSynthesisUtterance | null = null;
 
-  // Intro section data
-  testSections = [
-    { name: 'Grammar & Vocabulary', detail: '20 questions', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
-    { name: 'Reading Comprehension', detail: '5 questions', icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253' },
-    { name: 'Writing Task', detail: '80–120 words', icon: 'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z' },
-    { name: 'Listening Comprehension', detail: '5 questions', icon: 'M15.536 8.464a5 5 0 010 7.072M12 9.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5zm0 0v2.25M12 12l-3 3m0 0l3 3m-3-3h9m-9 0H3' },
+  // ── Intro section cards ────────────────────────────────────────
+  testSectionIcons = [
+    'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2',
+    'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
+    'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z',
+    'M15.536 8.464a5 5 0 010 7.072M12 9.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5zm0 0v2.25M12 12l-3 3m0 0l3 3m-3-3h9m-9 0H3',
   ];
 
-  // Submission state
+  // ── Submission state ───────────────────────────────────────────
   loading = signal(false);
   testResult = signal<PlacementTest | null>(null);
   submitError = signal<string | null>(null);
 
-  // Computed step index for progress
+  // ── Progress ───────────────────────────────────────────────────
   currentStepIndex = computed(() => this.steps.indexOf(this.currentStep()));
   progressPercent = computed(() => {
     const idx = this.currentStepIndex();
@@ -86,12 +119,20 @@ export class PlacementTestComponent implements OnDestroy {
     return Math.round((idx / total) * 100);
   });
 
-  // Word count getter for writing section
+  // Grammar progress as array for dot rendering
+  grammarDots = computed(() =>
+    this.grammarQuestions.map((q, i) => ({
+      answered: !!this.grammarAnswers[q.id],
+      current: i === this.currentGrammarIndex(),
+    }))
+  );
+
+  // ── Word count ─────────────────────────────────────────────────
   get wordCount(): number {
     return this.writingResponse.trim().split(/\s+/).filter(w => w.length > 0).length;
   }
 
-  // Answer counts
+  // ── Answer counts ──────────────────────────────────────────────
   grammarAnsweredCount = computed(() => Object.keys(this.grammarAnswers).length);
   readingAnsweredCount = computed(() =>
     Object.values(this.readingResponses).filter(v => v.trim().length > 0).length
@@ -105,28 +146,24 @@ export class PlacementTestComponent implements OnDestroy {
     private testScoringService: TestScoringService
   ) {}
 
-  // Navigation
-  goToStep(step: TestStep) {
+  // ── Navigation ─────────────────────────────────────────────────
+  goToStep(step: TestStep): void {
     this.stopListening();
+    if (this.advanceTimer) { clearTimeout(this.advanceTimer); this.advanceTimer = null; }
     this.currentStep.set(step);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  nextStep() {
+  nextStep(): void {
     const idx = this.currentStepIndex();
-    if (idx < this.steps.length - 1) {
-      this.goToStep(this.steps[idx + 1]);
-    }
+    if (idx < this.steps.length - 1) this.goToStep(this.steps[idx + 1]);
   }
 
-  prevStep() {
+  prevStep(): void {
     const idx = this.currentStepIndex();
-    if (idx > 0) {
-      this.goToStep(this.steps[idx - 1]);
-    }
+    if (idx > 0) this.goToStep(this.steps[idx - 1]);
   }
 
-  // Validation helpers
   isPersonalInfoValid(): boolean {
     return !!(this.personalInfo.full_name.trim() &&
       this.personalInfo.email.trim() &&
@@ -134,8 +171,8 @@ export class PlacementTestComponent implements OnDestroy {
       this.personalInfo.consent);
   }
 
-  // Text-to-Speech
-  playListening() {
+  // ── TTS ────────────────────────────────────────────────────────
+  playListening(): void {
     if (!('speechSynthesis' in window)) return;
     this.stopListening();
     this.utterance = new SpeechSynthesisUtterance(this.listeningScript);
@@ -147,23 +184,22 @@ export class PlacementTestComponent implements OnDestroy {
     this.isSpeaking.set(true);
   }
 
-  stopListening() {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
+  stopListening(): void {
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     this.isSpeaking.set(false);
   }
 
-  toggleTranscript() {
+  toggleTranscript(): void {
     this.showTranscript.update(v => !v);
   }
 
-  // Submit
-  async submitTest() {
+  // ── Submit ─────────────────────────────────────────────────────
+  async submitTest(): Promise<void> {
     this.loading.set(true);
     this.submitError.set(null);
 
-    const grammarAnswersList: TestAnswer[] = Object.entries(this.grammarAnswers).map(([questionId, answer]) => ({ questionId, answer }));
+    const grammarAnswersList: TestAnswer[] = Object.entries(this.grammarAnswers)
+      .map(([questionId, answer]) => ({ questionId, answer }));
 
     const { data, error } = await this.placementTestService.submitTest({
       full_name: this.personalInfo.full_name,
@@ -186,11 +222,8 @@ export class PlacementTestComponent implements OnDestroy {
     this.goToStep('results');
   }
 
-  getCefrDescription(level: string): string {
-    return this.testScoringService.getCefrDescription(level as any);
-  }
-
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.stopListening();
+    if (this.advanceTimer) clearTimeout(this.advanceTimer);
   }
 }
