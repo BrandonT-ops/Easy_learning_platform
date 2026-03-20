@@ -29,10 +29,10 @@
         </div>
         <h1 class="text-3xl font-bold text-neutral-900 mb-3">English Placement Test</h1>
         <p class="text-neutral-500 leading-relaxed mb-8">
-          This placement test evaluates your English level across five competencies: Reading, Grammar & Vocabulary, Listening, Writing, and Speaking. It takes approximately 30–45 minutes.
+          This placement test evaluates your English level across four sections. It takes approximately 30–45 minutes. Your full results will be reviewed by an instructor within 48 hours.
         </p>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-left mb-8">
+        <div class="grid grid-cols-2 sm:grid-cols-2 gap-3 text-left mb-8">
           @for (section of testSections; track section.name) {
             <div class="card p-4">
               <div class="w-7 h-7 bg-primary-50 rounded flex items-center justify-center mb-2">
@@ -49,9 +49,9 @@
         <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 text-left mb-8">
           <p class="text-sm font-medium text-amber-800 mb-1">Before you begin</p>
           <ul class="text-xs text-amber-700 space-y-1">
-            <li>• Ensure you have a stable internet connection</li>
-            <li>• Use headphones for the listening section</li>
-            <li>• Allow microphone access for the speaking section</li>
+            <li>• Answer all sections as best you can — there are no penalties for wrong answers</li>
+            <li>• Use speakers or headphones for the listening section</li>
+            <li>• A speaking video submission is separate — your instructor will explain how</li>
             <li>• Set aside 30–45 uninterrupted minutes</li>
           </ul>
         </div>
@@ -85,7 +85,7 @@
             <label class="form-label" for="phone">Phone Number <span class="text-red-500">*</span></label>
             <input id="phone" type="tel" class="form-input"
                    [(ngModel)]="personalInfo.phone"
-                   placeholder="+1 234 567 8900" />
+                   placeholder="+237 6XX XX XX XX" />
           </div>
 
           <!-- Consent -->
@@ -106,56 +106,6 @@
 
         <div class="mt-8 flex justify-end">
           <button (click)="nextStep()" [disabled]="!isPersonalInfoValid()" class="btn-primary">
-            Continue to Reading Section
-            <svg class="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    }
-
-    <!-- READING -->
-    @if (currentStep() === 'reading') {
-      <div class="space-y-6">
-        <div class="card p-6">
-          <h2 class="text-lg font-bold text-neutral-900 mb-1">Section 1: Reading Comprehension</h2>
-          <p class="text-sm text-neutral-500">Read the passage below, then answer the questions.</p>
-        </div>
-
-        <!-- Passage -->
-        <div class="card p-6">
-          <h3 class="text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-4">Reading Passage</h3>
-          <div class="prose prose-sm max-w-none text-neutral-700 leading-relaxed whitespace-pre-line text-sm">
-            {{ readingPassage }}
-          </div>
-        </div>
-
-        <!-- Questions -->
-        @for (question of readingQuestions; track question.id; let i = $index) {
-          <div class="card p-6">
-            <p class="text-sm font-medium text-neutral-900 mb-4">
-              <span class="text-primary-600 font-bold">{{ i + 1 }}.</span> {{ question.question }}
-            </p>
-            <div class="space-y-2">
-              @for (option of question.options; track option) {
-                <label class="flex items-start gap-3 p-3 rounded-lg border border-neutral-200 cursor-pointer hover:bg-neutral-50 transition-colors"
-                       [class.border-primary-400]="readingAnswers[question.id] === option[0]"
-                       [class.bg-primary-50]="readingAnswers[question.id] === option[0]">
-                  <input type="radio" [name]="'r_' + question.id" [value]="option[0]"
-                         [checked]="readingAnswers[question.id] === option[0]"
-                         (change)="setReadingAnswer(question.id, option[0])"
-                         class="mt-0.5 text-primary-600 border-neutral-300 focus:ring-primary-500" />
-                  <span class="text-sm text-neutral-700">{{ option }}</span>
-                </label>
-              }
-            </div>
-          </div>
-        }
-
-        <div class="flex items-center justify-between">
-          <span class="text-sm text-neutral-500">{{ readingAnsweredCount() }} of {{ readingQuestions.length }} answered</span>
-          <button (click)="nextStep()" class="btn-primary">
             Continue to Grammar
             <svg class="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
@@ -165,11 +115,11 @@
       </div>
     }
 
-    <!-- GRAMMAR -->
+    <!-- GRAMMAR & VOCABULARY -->
     @if (currentStep() === 'grammar') {
       <div class="space-y-6">
         <div class="card p-6">
-          <h2 class="text-lg font-bold text-neutral-900 mb-1">Section 2: Grammar & Vocabulary</h2>
+          <h2 class="text-lg font-bold text-neutral-900 mb-1">Section 1 — Grammar & Vocabulary</h2>
           <p class="text-sm text-neutral-500">Choose the best answer for each question.</p>
         </div>
 
@@ -181,11 +131,11 @@
             <div class="space-y-2">
               @for (option of question.options; track option) {
                 <label class="flex items-start gap-3 p-3 rounded-lg border border-neutral-200 cursor-pointer hover:bg-neutral-50 transition-colors"
-                       [class.border-primary-400]="grammarAnswers[question.id] === option[0]"
-                       [class.bg-primary-50]="grammarAnswers[question.id] === option[0]">
-                  <input type="radio" [name]="'g_' + question.id" [value]="option[0]"
-                         [checked]="grammarAnswers[question.id] === option[0]"
-                         (change)="setGrammarAnswer(question.id, option[0])"
+                       [class.border-primary-400]="grammarAnswers[question.id] === option[0].toLowerCase()"
+                       [class.bg-primary-50]="grammarAnswers[question.id] === option[0].toLowerCase()">
+                  <input type="radio" [name]="'g_' + question.id" [value]="option[0].toLowerCase()"
+                         [checked]="grammarAnswers[question.id] === option[0].toLowerCase()"
+                         (change)="grammarAnswers[question.id] = option[0].toLowerCase()"
                          class="mt-0.5 text-primary-600 border-neutral-300 focus:ring-primary-500" />
                   <span class="text-sm text-neutral-700">{{ option }}</span>
                 </label>
@@ -204,7 +154,7 @@
           <div class="flex items-center gap-4">
             <span class="text-sm text-neutral-500">{{ grammarAnsweredCount() }} of {{ grammarQuestions.length }} answered</span>
             <button (click)="nextStep()" class="btn-primary">
-              Continue to Listening
+              Continue to Reading
               <svg class="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
               </svg>
@@ -214,52 +164,32 @@
       </div>
     }
 
-    <!-- LISTENING -->
-    @if (currentStep() === 'listening') {
+    <!-- READING COMPREHENSION -->
+    @if (currentStep() === 'reading') {
       <div class="space-y-6">
         <div class="card p-6">
-          <h2 class="text-lg font-bold text-neutral-900 mb-1">Section 3: Listening Comprehension</h2>
-          <p class="text-sm text-neutral-500">Listen to the audio recording, then answer the questions below. You may listen multiple times.</p>
+          <h2 class="text-lg font-bold text-neutral-900 mb-1">Section 2 — Reading Comprehension</h2>
+          <p class="text-sm text-neutral-500">Read the passage carefully, then answer each question in your own words.</p>
         </div>
 
-        <!-- Audio Player -->
+        <!-- Passage -->
         <div class="card p-6">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-8 h-8 bg-primary-50 rounded-lg flex items-center justify-center">
-              <svg class="w-4 h-4 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072M12 9l-3 3m0 0l3 3m-3-3h9m-9 0H3" />
-              </svg>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-neutral-900">Listening Audio</p>
-              <p class="text-xs text-neutral-400">Business English — Workplace communication</p>
-            </div>
+          <h3 class="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-4">Reading Passage</h3>
+          <div class="text-sm text-neutral-700 leading-relaxed whitespace-pre-line border-l-4 border-primary-200 pl-4">
+            {{ readingPassage }}
           </div>
-          <audio controls class="w-full" [src]="listeningAudioUrl">
-            Your browser does not support the audio element.
-          </audio>
-          <p class="text-xs text-neutral-400 mt-3">Note: If the audio does not play, this may be a browser or network issue. You may still answer the questions based on your best judgment.</p>
         </div>
 
-        <!-- Questions -->
-        @for (question of listeningQuestions; track question.id; let i = $index) {
+        <!-- Open-ended questions -->
+        @for (question of readingQuestions; track question.id; let i = $index) {
           <div class="card p-6">
-            <p class="text-sm font-medium text-neutral-900 mb-4">
+            <label [for]="'r_' + question.id" class="block text-sm font-medium text-neutral-900 mb-3">
               <span class="text-primary-600 font-bold">{{ i + 1 }}.</span> {{ question.question }}
-            </p>
-            <div class="space-y-2">
-              @for (option of question.options; track option) {
-                <label class="flex items-start gap-3 p-3 rounded-lg border border-neutral-200 cursor-pointer hover:bg-neutral-50 transition-colors"
-                       [class.border-primary-400]="listeningAnswers[question.id] === option[0]"
-                       [class.bg-primary-50]="listeningAnswers[question.id] === option[0]">
-                  <input type="radio" [name]="'l_' + question.id" [value]="option[0]"
-                         [checked]="listeningAnswers[question.id] === option[0]"
-                         (change)="setListeningAnswer(question.id, option[0])"
-                         class="mt-0.5 text-primary-600 border-neutral-300 focus:ring-primary-500" />
-                  <span class="text-sm text-neutral-700">{{ option }}</span>
-                </label>
-              }
-            </div>
+            </label>
+            <textarea [id]="'r_' + question.id" rows="3" class="form-textarea"
+                      [(ngModel)]="readingResponses[question.id]"
+                      placeholder="Write your answer here...">
+            </textarea>
           </div>
         }
 
@@ -271,7 +201,7 @@
             Back
           </button>
           <div class="flex items-center gap-4">
-            <span class="text-sm text-neutral-500">{{ listeningAnsweredCount() }} of {{ listeningQuestions.length }} answered</span>
+            <span class="text-sm text-neutral-500">{{ readingAnsweredCount() }} of {{ readingQuestions.length }} answered</span>
             <button (click)="nextStep()" class="btn-primary">
               Continue to Writing
               <svg class="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -283,12 +213,12 @@
       </div>
     }
 
-    <!-- WRITING -->
+    <!-- WRITING TASK -->
     @if (currentStep() === 'writing') {
       <div class="space-y-6">
         <div class="card p-6">
-          <h2 class="text-lg font-bold text-neutral-900 mb-1">Section 4: Writing Task</h2>
-          <p class="text-sm text-neutral-500">Your written response will be reviewed by an instructor. You will not receive an immediate score for this section.</p>
+          <h2 class="text-lg font-bold text-neutral-900 mb-1">Section 3 — Writing Task</h2>
+          <p class="text-sm text-neutral-500">Your written response will be reviewed by an instructor.</p>
         </div>
 
         <div class="card p-6">
@@ -299,18 +229,18 @@
 
           <label class="form-label" for="writing_response">
             Your Response
-            <span class="text-neutral-400 font-normal ml-1">(150–250 words)</span>
+            <span class="text-neutral-400 font-normal ml-1">(80–120 words)</span>
           </label>
-          <textarea id="writing_response" rows="12" class="form-textarea"
+          <textarea id="writing_response" rows="10" class="form-textarea"
                     [(ngModel)]="writingResponse"
                     placeholder="Write your response here...">
           </textarea>
           <div class="flex items-center justify-between mt-2">
-            <p class="text-xs text-neutral-400">
-              Word count: {{ wordCount }} / 250
+            <p class="text-xs" [class.text-neutral-400]="wordCount >= 80" [class.text-amber-600]="wordCount < 80">
+              Word count: {{ wordCount }}
             </p>
-            @if (wordCount < 150) {
-              <p class="text-xs text-amber-600">Minimum 150 words recommended</p>
+            @if (wordCount > 120) {
+              <p class="text-xs text-amber-600">Try to stay within 120 words</p>
             }
           </div>
         </div>
@@ -323,7 +253,7 @@
             Back
           </button>
           <button (click)="nextStep()" class="btn-primary">
-            Continue to Speaking
+            Continue to Listening
             <svg class="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
             </svg>
@@ -332,101 +262,86 @@
       </div>
     }
 
-    <!-- SPEAKING -->
-    @if (currentStep() === 'speaking') {
+    <!-- LISTENING COMPREHENSION -->
+    @if (currentStep() === 'listening') {
       <div class="space-y-6">
         <div class="card p-6">
-          <h2 class="text-lg font-bold text-neutral-900 mb-1">Section 5: Speaking Task</h2>
-          <p class="text-sm text-neutral-500">Record your spoken response. Your recording will be reviewed by an instructor.</p>
+          <h2 class="text-lg font-bold text-neutral-900 mb-1">Section 4 — Listening Comprehension</h2>
+          <p class="text-sm text-neutral-500">Press Play to hear the passage read aloud. You can listen multiple times, then answer the questions below.</p>
         </div>
 
+        <!-- TTS Player -->
         <div class="card p-6">
-          <!-- Prompt -->
-          <div class="bg-neutral-50 rounded-lg border border-neutral-200 p-4 mb-6">
-            <h3 class="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-3">Speaking Prompt</h3>
-            <p class="text-sm text-neutral-700 leading-relaxed whitespace-pre-line">{{ speakingPrompt }}</p>
-          </div>
-
-          <!-- Recorder -->
-          <div class="border-2 border-dashed rounded-xl p-8 text-center" [class.border-red-400]="isRecording()" [class.border-neutral-200]="!isRecording()">
-
-            @if (!recordedBlob()) {
-              <!-- Before recording -->
-              @if (!isRecording()) {
-                <div>
-                  <div class="w-16 h-16 bg-neutral-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-                    </svg>
-                  </div>
-                  <p class="text-sm font-medium text-neutral-900 mb-1">Ready to record?</p>
-                  <p class="text-xs text-neutral-400 mb-5">Make sure your microphone is connected and you are in a quiet environment.</p>
-                  <button (click)="startRecording()" class="btn-primary mx-auto">
-                    <svg class="w-4 h-4 mr-2 text-red-300" fill="currentColor" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="6" />
-                    </svg>
-                    Start Recording
-                  </button>
-                </div>
+          <div class="flex flex-col items-center text-center gap-4">
+            <div class="w-14 h-14 rounded-full flex items-center justify-center"
+                 [class.bg-primary-100]="!isSpeaking()"
+                 [class.bg-primary-600]="isSpeaking()">
+              @if (!isSpeaking()) {
+                <svg class="w-7 h-7 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
               } @else {
-                <!-- Recording in progress -->
-                <div>
-                  <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
-                    <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="6" />
-                    </svg>
-                  </div>
-                  <p class="text-sm font-medium text-red-600 mb-1">Recording...</p>
-                  <p class="text-2xl font-mono font-bold text-neutral-900 mb-5">{{ formatTime(recordingTime()) }}</p>
-                  <button (click)="stopRecording()" class="inline-flex items-center justify-center px-6 py-2.5 rounded-lg bg-red-600 text-white font-medium text-sm hover:bg-red-700 transition-colors">
-                    <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
-                    </svg>
-                    Stop Recording
-                  </button>
-                </div>
+                <svg class="w-7 h-7 text-white animate-pulse" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
               }
-            } @else {
-              <!-- Recorded -->
+            </div>
+
+            @if (!isSpeaking()) {
               <div>
-                <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg class="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                <p class="text-sm font-semibold text-neutral-900">Ready to listen</p>
+                <p class="text-xs text-neutral-400 mb-3">The passage will be read aloud in English</p>
+                <button (click)="playListening()" class="btn-primary">
+                  <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
                   </svg>
-                </div>
-                <p class="text-sm font-medium text-neutral-900 mb-1">Recording saved ({{ formatTime(recordingTime()) }})</p>
-                <p class="text-xs text-neutral-400 mb-4">Listen to your recording before submitting.</p>
-                <audio controls class="w-full max-w-sm mx-auto mb-4" [src]="recordedUrl()!">
-                  Your browser does not support the audio element.
-                </audio>
-                <button (click)="clearRecording()" class="btn-ghost text-sm mx-auto">
-                  <svg class="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  Play Audio
+                </button>
+              </div>
+            } @else {
+              <div>
+                <p class="text-sm font-semibold text-primary-700 animate-pulse">Playing...</p>
+                <p class="text-xs text-neutral-400 mb-3">Listen carefully before answering</p>
+                <button (click)="stopListening()" class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-neutral-200 text-neutral-800 font-medium text-sm hover:bg-neutral-300 transition-colors">
+                  <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25zm0 3h.008v7.5H12v-7.5z" />
                   </svg>
-                  Re-record
+                  Stop
                 </button>
               </div>
             }
 
+            <button (click)="toggleTranscript()" class="text-xs text-primary-600 hover:underline mt-1">
+              {{ showTranscript() ? 'Hide transcript' : 'Show transcript' }}
+            </button>
           </div>
 
-          @if (speakingError()) {
-            <div class="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-              <p class="text-sm text-red-600">{{ speakingError() }}</p>
+          @if (showTranscript()) {
+            <div class="mt-5 p-4 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <p class="text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-2">Transcript</p>
+              <p class="text-sm text-neutral-700 leading-relaxed italic">{{ listeningScript }}</p>
             </div>
           }
-
-          <p class="text-xs text-neutral-400 mt-4 text-center">
-            Speaking assessment is optional. You may skip this section by proceeding without recording.
-          </p>
         </div>
+
+        <!-- Open-ended questions -->
+        @for (question of listeningQuestions; track question.id; let i = $index) {
+          <div class="card p-6">
+            <label [for]="'l_' + question.id" class="block text-sm font-medium text-neutral-900 mb-3">
+              <span class="text-primary-600 font-bold">{{ i + 1 }}.</span> {{ question.question }}
+            </label>
+            <textarea [id]="'l_' + question.id" rows="2" class="form-textarea"
+                      [(ngModel)]="listeningResponses[question.id]"
+                      placeholder="Write your answer here...">
+            </textarea>
+          </div>
+        }
 
         <!-- Submit -->
         <div class="card p-6">
           <h3 class="text-sm font-semibold text-neutral-900 mb-2">Ready to Submit?</h3>
           <p class="text-sm text-neutral-500 mb-4">
-            Submitting will save all your answers. Your objective scores will be calculated immediately. Writing and speaking sections will be reviewed by an instructor within 48 hours.
+            Your grammar answers will be scored immediately. Reading, writing, and listening responses will be reviewed by an instructor within 48 hours.
           </p>
 
           @if (submitError()) {
@@ -442,17 +357,20 @@
               </svg>
               Back
             </button>
-            <button (click)="submitTest()" [disabled]="loading()" class="btn-primary">
-              @if (loading()) {
-                <svg class="w-4 h-4 mr-2 animate-spin" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-                </svg>
-                Submitting...
-              } @else {
-                Submit Test
-              }
-            </button>
+            <div class="flex items-center gap-4">
+              <span class="text-sm text-neutral-500">{{ listeningAnsweredCount() }} of {{ listeningQuestions.length }} listening answered</span>
+              <button (click)="submitTest()" [disabled]="loading()" class="btn-primary">
+                @if (loading()) {
+                  <svg class="w-4 h-4 mr-2 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                  </svg>
+                  Submitting...
+                } @else {
+                  Submit Test
+                }
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -462,54 +380,44 @@
     @if (currentStep() === 'results') {
       <div class="space-y-6">
         <div class="text-center">
-          <div class="w-20 h-20 bg-primary-50 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-10 h-10 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-10 h-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <h2 class="text-2xl font-bold text-neutral-900 mb-2">Test Submitted</h2>
+          <h2 class="text-2xl font-bold text-neutral-900 mb-2">Test Submitted!</h2>
           <p class="text-neutral-500 max-w-md mx-auto">
-            Thank you, {{ personalInfo.full_name }}. Your test has been submitted. A confirmation has been sent to {{ personalInfo.email }}.
+            Thank you, <strong>{{ personalInfo.full_name }}</strong>. Your test has been submitted successfully. A confirmation will be sent to <strong>{{ personalInfo.email }}</strong>.
           </p>
         </div>
 
         @if (testResult()) {
           <!-- Score Card -->
           <div class="card p-8">
-            <div class="text-center mb-8">
-              <div class="inline-block">
-                <div class="text-6xl font-bold text-primary-600">{{ testResult()!.cefr_level }}</div>
-                <div class="text-sm text-neutral-500 mt-1">Your English Level</div>
-                <div class="badge badge-blue mt-3 text-sm px-4 py-1">{{ getCefrDescription(testResult()!.cefr_level!) }}</div>
-              </div>
+            <div class="text-center mb-6 pb-6 border-b border-neutral-200">
+              <p class="text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-2">Grammar Auto-Score</p>
+              <div class="text-5xl font-bold text-primary-600 mb-1">{{ testResult()!.grammar_score }}<span class="text-2xl text-neutral-400">/100</span></div>
+              <p class="text-sm text-neutral-500">This is your grammar & vocabulary score only. Your full level will be determined after instructor review.</p>
             </div>
 
-            <div class="border-t border-neutral-200 pt-6">
+            <div>
               <h3 class="text-sm font-semibold text-neutral-900 mb-4">Score Breakdown</h3>
               <div class="space-y-3">
                 <div class="flex items-center justify-between py-2 border-b border-neutral-100">
-                  <span class="text-sm text-neutral-600">Reading</span>
-                  <span class="text-sm font-medium text-neutral-900">{{ testResult()!.reading_score }} / 35</span>
-                </div>
-                <div class="flex items-center justify-between py-2 border-b border-neutral-100">
                   <span class="text-sm text-neutral-600">Grammar & Vocabulary</span>
-                  <span class="text-sm font-medium text-neutral-900">{{ testResult()!.grammar_score }} / 40</span>
+                  <span class="text-sm font-semibold text-primary-600">{{ testResult()!.grammar_score }} / 100</span>
                 </div>
                 <div class="flex items-center justify-between py-2 border-b border-neutral-100">
-                  <span class="text-sm text-neutral-600">Listening</span>
-                  <span class="text-sm font-medium text-neutral-900">{{ testResult()!.listening_score }} / 25</span>
+                  <span class="text-sm text-neutral-600">Reading Comprehension</span>
+                  <span class="badge badge-yellow text-xs">Pending review</span>
                 </div>
                 <div class="flex items-center justify-between py-2 border-b border-neutral-100">
-                  <span class="text-sm text-neutral-600">Writing</span>
-                  <div class="badge badge-yellow text-xs">Pending review</div>
+                  <span class="text-sm text-neutral-600">Writing Task</span>
+                  <span class="badge badge-yellow text-xs">Pending review</span>
                 </div>
                 <div class="flex items-center justify-between py-2">
-                  <span class="text-sm text-neutral-600">Speaking</span>
-                  <div class="badge badge-yellow text-xs">Pending review</div>
-                </div>
-                <div class="flex items-center justify-between py-3 border-t border-neutral-200 mt-2">
-                  <span class="text-sm font-semibold text-neutral-900">Total (Objective)</span>
-                  <span class="text-sm font-bold text-primary-600">{{ testResult()!.total_score }} / 100</span>
+                  <span class="text-sm text-neutral-600">Listening Comprehension</span>
+                  <span class="badge badge-yellow text-xs">Pending review</span>
                 </div>
               </div>
             </div>
@@ -517,19 +425,19 @@
 
           <!-- Next Steps -->
           <div class="card p-6">
-            <h3 class="text-base font-semibold text-neutral-900 mb-3">Next Steps</h3>
+            <h3 class="text-base font-semibold text-neutral-900 mb-3">What happens next?</h3>
             <ul class="space-y-3">
               <li class="flex items-start gap-3 text-sm text-neutral-600">
                 <div class="w-5 h-5 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-bold text-primary-600">1</div>
-                Check your email for a confirmation with your score summary.
+                Check your email — a confirmation with your grammar score has been sent.
               </li>
               <li class="flex items-start gap-3 text-sm text-neutral-600">
                 <div class="w-5 h-5 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-bold text-primary-600">2</div>
-                Your writing and speaking will be reviewed within 48 hours. You will receive a final level assessment.
+                Your reading, writing, and listening responses will be reviewed within 48 hours. You will receive your final level (Beginner, Intermediate, or Advanced).
               </li>
               <li class="flex items-start gap-3 text-sm text-neutral-600">
                 <div class="w-5 h-5 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-bold text-primary-600">3</div>
-                A member of our team will contact you to discuss the right program for your level and goals.
+                A member of our team will contact you via WhatsApp or email to discuss the right program for your level.
               </li>
             </ul>
           </div>

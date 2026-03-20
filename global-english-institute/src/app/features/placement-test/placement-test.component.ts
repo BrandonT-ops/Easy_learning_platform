@@ -11,12 +11,12 @@ import {
   READING_PASSAGE,
   READING_QUESTIONS,
   GRAMMAR_QUESTIONS,
+  LISTENING_SCRIPT,
   LISTENING_QUESTIONS,
   WRITING_PROMPT,
-  SPEAKING_PROMPT,
 } from './test-data';
 
-type TestStep = 'intro' | 'personal-info' | 'reading' | 'grammar' | 'listening' | 'writing' | 'speaking' | 'results';
+type TestStep = 'intro' | 'personal-info' | 'grammar' | 'reading' | 'writing' | 'listening' | 'results';
 
 @Component({
   selector: 'app-placement-test',
@@ -27,15 +27,14 @@ type TestStep = 'intro' | 'personal-info' | 'reading' | 'grammar' | 'listening' 
 export class PlacementTestComponent implements OnDestroy {
   // Step management
   currentStep = signal<TestStep>('intro');
-  steps: TestStep[] = ['intro', 'personal-info', 'reading', 'grammar', 'listening', 'writing', 'speaking', 'results'];
+  steps: TestStep[] = ['intro', 'personal-info', 'grammar', 'reading', 'writing', 'listening', 'results'];
   stepLabels: Record<string, string> = {
     'intro': 'Introduction',
     'personal-info': 'Your Details',
-    'reading': 'Reading',
     'grammar': 'Grammar & Vocabulary',
-    'listening': 'Listening',
+    'reading': 'Reading',
     'writing': 'Writing',
-    'speaking': 'Speaking',
+    'listening': 'Listening',
     'results': 'Results',
   };
 
@@ -51,36 +50,27 @@ export class PlacementTestComponent implements OnDestroy {
   readingPassage = READING_PASSAGE;
   readingQuestions = READING_QUESTIONS;
   grammarQuestions = GRAMMAR_QUESTIONS;
+  listeningScript = LISTENING_SCRIPT;
   listeningQuestions = LISTENING_QUESTIONS;
   writingPrompt = WRITING_PROMPT;
-  speakingPrompt = SPEAKING_PROMPT;
 
   // Answers
-  readingAnswers: Record<string, string> = {};
   grammarAnswers: Record<string, string> = {};
-  listeningAnswers: Record<string, string> = {};
+  readingResponses: Record<string, string> = {};
+  listeningResponses: Record<string, string> = {};
   writingResponse = '';
 
-  // Speaking recording
-  mediaRecorder: MediaRecorder | null = null;
-  audioChunks: Blob[] = [];
-  recordedBlob = signal<Blob | null>(null);
-  recordedUrl = signal<string | null>(null);
-  isRecording = signal(false);
-  recordingTime = signal(0);
-  recordingInterval: ReturnType<typeof setInterval> | null = null;
-  speakingError = signal<string | null>(null);
-
-  // Audio playback URL for listening section
-  listeningAudioUrl = '/assets/audio/listening-sample.mp3';
+  // Text-to-Speech for listening
+  isSpeaking = signal(false);
+  showTranscript = signal(false);
+  private utterance: SpeechSynthesisUtterance | null = null;
 
   // Intro section data
   testSections = [
-    { name: 'Reading', detail: '7 questions', icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253' },
-    { name: 'Grammar & Vocabulary', detail: '10 questions', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
-    { name: 'Listening', detail: '5 questions', icon: 'M15.536 8.464a5 5 0 010 7.072M12 9l-3 3m0 0l3 3m-3-3h9m-9 0H3' },
-    { name: 'Writing', detail: '150–250 words', icon: 'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z' },
-    { name: 'Speaking', detail: '1.5–2 minutes', icon: 'M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z' },
+    { name: 'Grammar & Vocabulary', detail: '20 questions', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
+    { name: 'Reading Comprehension', detail: '5 questions', icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253' },
+    { name: 'Writing Task', detail: '80–120 words', icon: 'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z' },
+    { name: 'Listening Comprehension', detail: '5 questions', icon: 'M15.536 8.464a5 5 0 010 7.072M12 9.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5zm0 0v2.25M12 12l-3 3m0 0l3 3m-3-3h9m-9 0H3' },
   ];
 
   // Submission state
@@ -98,8 +88,17 @@ export class PlacementTestComponent implements OnDestroy {
 
   // Word count getter for writing section
   get wordCount(): number {
-    return this.writingResponse.trim().split(' ').filter(w => w.length > 0).length;
+    return this.writingResponse.trim().split(/\s+/).filter(w => w.length > 0).length;
   }
+
+  // Answer counts
+  grammarAnsweredCount = computed(() => Object.keys(this.grammarAnswers).length);
+  readingAnsweredCount = computed(() =>
+    Object.values(this.readingResponses).filter(v => v.trim().length > 0).length
+  );
+  listeningAnsweredCount = computed(() =>
+    Object.values(this.listeningResponses).filter(v => v.trim().length > 0).length
+  );
 
   constructor(
     private placementTestService: PlacementTestService,
@@ -108,6 +107,7 @@ export class PlacementTestComponent implements OnDestroy {
 
   // Navigation
   goToStep(step: TestStep) {
+    this.stopListening();
     this.currentStep.set(step);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -126,19 +126,6 @@ export class PlacementTestComponent implements OnDestroy {
     }
   }
 
-  // Answer handlers
-  setReadingAnswer(questionId: string, answer: string) {
-    this.readingAnswers[questionId] = answer;
-  }
-
-  setGrammarAnswer(questionId: string, answer: string) {
-    this.grammarAnswers[questionId] = answer;
-  }
-
-  setListeningAnswer(questionId: string, answer: string) {
-    this.listeningAnswers[questionId] = answer;
-  }
-
   // Validation helpers
   isPersonalInfoValid(): boolean {
     return !!(this.personalInfo.full_name.trim() &&
@@ -147,67 +134,28 @@ export class PlacementTestComponent implements OnDestroy {
       this.personalInfo.consent);
   }
 
-  readingAnsweredCount = computed(() => Object.keys(this.readingAnswers).length);
-  grammarAnsweredCount = computed(() => Object.keys(this.grammarAnswers).length);
-  listeningAnsweredCount = computed(() => Object.keys(this.listeningAnswers).length);
-
-  // Recording
-  async startRecording() {
-    this.speakingError.set(null);
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      this.audioChunks = [];
-      this.mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
-
-      this.mediaRecorder.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          this.audioChunks.push(event.data);
-        }
-      };
-
-      this.mediaRecorder.onstop = () => {
-        const blob = new Blob(this.audioChunks, { type: 'audio/webm' });
-        const url = URL.createObjectURL(blob);
-        this.recordedBlob.set(blob);
-        this.recordedUrl.set(url);
-        stream.getTracks().forEach(track => track.stop());
-      };
-
-      this.mediaRecorder.start(1000);
-      this.isRecording.set(true);
-      this.recordingTime.set(0);
-      this.recordingInterval = setInterval(() => {
-        this.recordingTime.update(t => t + 1);
-      }, 1000);
-    } catch (err) {
-      this.speakingError.set('Microphone access denied. Please allow microphone access and try again.');
-    }
+  // Text-to-Speech
+  playListening() {
+    if (!('speechSynthesis' in window)) return;
+    this.stopListening();
+    this.utterance = new SpeechSynthesisUtterance(this.listeningScript);
+    this.utterance.lang = 'en-US';
+    this.utterance.rate = 0.9;
+    this.utterance.onend = () => this.isSpeaking.set(false);
+    this.utterance.onerror = () => this.isSpeaking.set(false);
+    window.speechSynthesis.speak(this.utterance);
+    this.isSpeaking.set(true);
   }
 
-  stopRecording() {
-    if (this.mediaRecorder && this.isRecording()) {
-      this.mediaRecorder.stop();
-      this.isRecording.set(false);
-      if (this.recordingInterval) {
-        clearInterval(this.recordingInterval);
-        this.recordingInterval = null;
-      }
+  stopListening() {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
     }
+    this.isSpeaking.set(false);
   }
 
-  clearRecording() {
-    if (this.recordedUrl()) {
-      URL.revokeObjectURL(this.recordedUrl()!);
-    }
-    this.recordedBlob.set(null);
-    this.recordedUrl.set(null);
-    this.recordingTime.set(0);
-  }
-
-  formatTime(seconds: number): string {
-    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
-    const s = (seconds % 60).toString().padStart(2, '0');
-    return `${m}:${s}`;
+  toggleTranscript() {
+    this.showTranscript.update(v => !v);
   }
 
   // Submit
@@ -215,19 +163,16 @@ export class PlacementTestComponent implements OnDestroy {
     this.loading.set(true);
     this.submitError.set(null);
 
-    const readingAnswersList: TestAnswer[] = Object.entries(this.readingAnswers).map(([questionId, answer]) => ({ questionId, answer }));
     const grammarAnswersList: TestAnswer[] = Object.entries(this.grammarAnswers).map(([questionId, answer]) => ({ questionId, answer }));
-    const listeningAnswersList: TestAnswer[] = Object.entries(this.listeningAnswers).map(([questionId, answer]) => ({ questionId, answer }));
 
     const { data, error } = await this.placementTestService.submitTest({
       full_name: this.personalInfo.full_name,
       email: this.personalInfo.email,
       phone: this.personalInfo.phone,
-      readingAnswers: readingAnswersList,
       grammarAnswers: grammarAnswersList,
-      listeningAnswers: listeningAnswersList,
+      readingResponses: this.readingResponses,
+      listeningResponses: this.listeningResponses,
       writingResponse: this.writingResponse,
-      speakingBlob: this.recordedBlob() ?? undefined,
     });
 
     if (error) {
@@ -246,7 +191,6 @@ export class PlacementTestComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.recordingInterval) clearInterval(this.recordingInterval);
-    if (this.recordedUrl()) URL.revokeObjectURL(this.recordedUrl()!);
+    this.stopListening();
   }
 }

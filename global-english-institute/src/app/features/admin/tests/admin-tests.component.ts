@@ -68,19 +68,19 @@ import { PlacementTest, EnglishLevel } from '../../../core/models';
                     <td class="py-3 px-4">
                       <div class="space-y-0.5">
                         <div class="flex items-center gap-2 text-xs">
-                          <span class="text-neutral-400 w-14">Reading</span>
-                          <span class="font-medium">{{ test.reading_score ?? '-' }}/35</span>
+                          <span class="text-neutral-400 w-16">Grammar</span>
+                          <span class="font-semibold text-primary-700">{{ test.grammar_score ?? '-' }}/100</span>
                         </div>
                         <div class="flex items-center gap-2 text-xs">
-                          <span class="text-neutral-400 w-14">Grammar</span>
-                          <span class="font-medium">{{ test.grammar_score ?? '-' }}/40</span>
+                          <span class="text-neutral-400 w-16">Reading</span>
+                          @if (test.reading_score != null) {
+                            <span class="font-medium">{{ test.reading_score }}</span>
+                          } @else {
+                            <span class="badge badge-yellow text-xs">Pending</span>
+                          }
                         </div>
                         <div class="flex items-center gap-2 text-xs">
-                          <span class="text-neutral-400 w-14">Listening</span>
-                          <span class="font-medium">{{ test.listening_score ?? '-' }}/25</span>
-                        </div>
-                        <div class="flex items-center gap-2 text-xs">
-                          <span class="text-neutral-400 w-14">Writing</span>
+                          <span class="text-neutral-400 w-16">Writing</span>
                           @if (test.writing_score != null) {
                             <span class="font-medium">{{ test.writing_score }}</span>
                           } @else {
@@ -88,9 +88,9 @@ import { PlacementTest, EnglishLevel } from '../../../core/models';
                           }
                         </div>
                         <div class="flex items-center gap-2 text-xs">
-                          <span class="text-neutral-400 w-14">Speaking</span>
-                          @if (test.speaking_score != null) {
-                            <span class="font-medium">{{ test.speaking_score }}</span>
+                          <span class="text-neutral-400 w-16">Listening</span>
+                          @if (test.listening_score != null) {
+                            <span class="font-medium">{{ test.listening_score }}</span>
                           } @else {
                             <span class="badge badge-yellow text-xs">Pending</span>
                           }
@@ -152,48 +152,83 @@ import { PlacementTest, EnglishLevel } from '../../../core/models';
           </div>
 
           <div class="p-5 space-y-5">
+            <!-- Grammar auto-score info -->
+            <div class="bg-primary-50 border border-primary-200 rounded-lg p-3">
+              <p class="text-xs font-semibold text-primary-700 mb-0.5">Grammar Auto-Score</p>
+              <p class="text-2xl font-bold text-primary-700">{{ selectedTest()!.grammar_score ?? '-' }}<span class="text-sm font-normal text-primary-400">/100</span></p>
+            </div>
+
+            <!-- Reading Responses -->
+            @if (selectedTest()!.reading_responses) {
+              <div>
+                <h3 class="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-2">Reading Responses</h3>
+                <div class="space-y-2">
+                  @for (entry of parseResponses(selectedTest()!.reading_responses!); track entry.q) {
+                    <div class="bg-neutral-50 rounded-lg border border-neutral-200 p-3">
+                      <p class="text-xs font-medium text-neutral-500 mb-1">{{ entry.q }}</p>
+                      <p class="text-sm text-neutral-800">{{ entry.a || '(no answer)' }}</p>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+
             <!-- Writing Response -->
             @if (selectedTest()!.writing_response) {
               <div>
                 <h3 class="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-2">Writing Response</h3>
-                <div class="bg-neutral-50 rounded-lg border border-neutral-200 p-4 text-sm text-neutral-700 leading-relaxed max-h-40 overflow-y-auto">
+                <div class="bg-neutral-50 rounded-lg border border-neutral-200 p-4 text-sm text-neutral-700 leading-relaxed max-h-48 overflow-y-auto">
                   {{ selectedTest()!.writing_response }}
                 </div>
               </div>
             }
 
-            <!-- Speaking Recording -->
-            @if (selectedTest()!.speaking_url) {
+            <!-- Listening Responses -->
+            @if (selectedTest()!.listening_responses) {
               <div>
-                <h3 class="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-2">Speaking Recording</h3>
-                <audio controls class="w-full" [src]="selectedTest()!.speaking_url!">
-                  Your browser does not support audio.
-                </audio>
+                <h3 class="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-2">Listening Responses</h3>
+                <div class="space-y-2">
+                  @for (entry of parseResponses(selectedTest()!.listening_responses!); track entry.q) {
+                    <div class="bg-neutral-50 rounded-lg border border-neutral-200 p-3">
+                      <p class="text-xs font-medium text-neutral-500 mb-1">{{ entry.q }}</p>
+                      <p class="text-sm text-neutral-800">{{ entry.a || '(no answer)' }}</p>
+                    </div>
+                  }
+                </div>
               </div>
             }
 
-            <!-- Score Override -->
-            <div class="grid grid-cols-2 gap-4">
-              <div>
-                <label class="form-label text-xs">Writing Score</label>
-                <input type="number" min="0" max="100"
-                       [(ngModel)]="editWritingScore"
-                       class="form-input text-sm" placeholder="0–100" />
-              </div>
-              <div>
-                <label class="form-label text-xs">Speaking Score</label>
-                <input type="number" min="0" max="100"
-                       [(ngModel)]="editSpeakingScore"
-                       class="form-input text-sm" placeholder="0–100" />
-              </div>
-              <div>
-                <label class="form-label text-xs">Override Level</label>
-                <select [(ngModel)]="editCefrLevel" class="form-select text-sm">
-                  <option value="">Keep current ({{ selectedTest()!.cefr_level }})</option>
-                  <option value="Beginner">Beginner</option>
-                  <option value="Intermediate">Intermediate</option>
-                  <option value="Advanced">Advanced</option>
-                </select>
+            <!-- Score Entry + Level Assignment -->
+            <div>
+              <h3 class="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-3">Assign Scores & Level</h3>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="form-label text-xs">Reading Score</label>
+                  <input type="number" min="0" max="100"
+                         [(ngModel)]="editReadingScore"
+                         class="form-input text-sm" placeholder="0–100" />
+                </div>
+                <div>
+                  <label class="form-label text-xs">Writing Score</label>
+                  <input type="number" min="0" max="100"
+                         [(ngModel)]="editWritingScore"
+                         class="form-input text-sm" placeholder="0–100" />
+                </div>
+                <div>
+                  <label class="form-label text-xs">Listening Score</label>
+                  <input type="number" min="0" max="100"
+                         [(ngModel)]="editListeningScore"
+                         class="form-input text-sm" placeholder="0–100" />
+                </div>
+                <div>
+                  <label class="form-label text-xs">Assign Level</label>
+                  <select [(ngModel)]="editCefrLevel" class="form-select text-sm">
+                    <option value="">{{ selectedTest()!.cefr_level ? 'Keep: ' + selectedTest()!.cefr_level : 'Not assigned yet' }}</option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -216,8 +251,9 @@ export class AdminTestsComponent implements OnInit {
   filterLevel = '';
   filterStatus = '';
   selectedTest = signal<PlacementTest | null>(null);
+  editReadingScore: number | null = null;
   editWritingScore: number | null = null;
-  editSpeakingScore: number | null = null;
+  editListeningScore: number | null = null;
   editCefrLevel = '';
   savingScores = signal(false);
 
@@ -252,9 +288,32 @@ export class AdminTestsComponent implements OnInit {
 
   openDetail(test: PlacementTest) {
     this.selectedTest.set(test);
+    this.editReadingScore = test.reading_score;
     this.editWritingScore = test.writing_score;
-    this.editSpeakingScore = test.speaking_score;
+    this.editListeningScore = test.listening_score;
     this.editCefrLevel = '';
+  }
+
+  // Parse JSON-stored open-ended responses into { q, a } pairs for display
+  parseResponses(json: string): { q: string; a: string }[] {
+    try {
+      const obj = JSON.parse(json) as Record<string, string>;
+      const questionLabels: Record<string, string> = {
+        r1: 'Q1: Traditional purpose of libraries?',
+        r2: 'Q2: Why rethink their role?',
+        r3: 'Q3: What do libraries offer for digital tools?',
+        r4: 'Q4: Who especially depends on library technology?',
+        r5: 'Q5: What is the digital divide?',
+        l1: 'Q1: Main purpose of the announcement?',
+        l2: 'Q2: What time does the event begin?',
+        l3: 'Q3: What should participants bring?',
+        l4: 'Q4: What happens after the clean-up?',
+        l5: 'Q5: Why might students be interested?',
+      };
+      return Object.entries(obj).map(([k, v]) => ({ q: questionLabels[k] ?? k, a: v }));
+    } catch {
+      return [];
+    }
   }
 
   async saveScores() {
@@ -262,8 +321,9 @@ export class AdminTestsComponent implements OnInit {
     this.savingScores.set(true);
 
     const updates: any = {};
+    if (this.editReadingScore != null) updates.reading_score = this.editReadingScore;
     if (this.editWritingScore != null) updates.writing_score = this.editWritingScore;
-    if (this.editSpeakingScore != null) updates.speaking_score = this.editSpeakingScore;
+    if (this.editListeningScore != null) updates.listening_score = this.editListeningScore;
     if (this.editCefrLevel) updates.cefr_level = this.editCefrLevel;
 
     await this.placementTestService.updateTestScores(this.selectedTest()!.id, updates);
