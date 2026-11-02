@@ -60,8 +60,8 @@ export class AuthService {
       const { data: authData } = await this.supabaseService.supabase.auth.getUser();
       const fallback = {
         id: userId,
-        full_name: authData?.user?.email?.split('@')[0] ?? 'Admin',
-        role: 'admin',
+        full_name: authData?.user?.email?.split('@')[0] ?? 'User',
+        role: 'student',
       };
       const { data: created } = await this.supabaseService.supabase
         .from('profiles')

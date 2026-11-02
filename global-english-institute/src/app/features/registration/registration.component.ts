@@ -116,12 +116,10 @@ interface RegistrationForm {
                       <select id="level" name="level"
                               [(ngModel)]="form.level"
                               class="form-select">
-                        <option value="">Not sure (take placement test)</option>
-                        <option value="A1">A1 - Beginner</option>
-                        <option value="A2">A2 - Elementary</option>
-                        <option value="B1">B1 - Intermediate</option>
-                        <option value="B2">B2 - Upper-Intermediate</option>
-                        <option value="C1">C1 - Advanced</option>
+                        <option value="">Not sure (take placement test first)</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
                       </select>
                     </div>
 

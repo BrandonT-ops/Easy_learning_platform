@@ -200,8 +200,29 @@ insert into testimonials (student_name, content, is_visible) values
 on conflict do nothing;
 
 
--- STORAGE BUCKET for speaking recordings
--- Run this in the Supabase dashboard Storage section:
--- 1. Create a bucket named 'speaking-recordings'
--- 2. Set to private (not public) or configure appropriate RLS
--- The application handles upload via the Supabase client with anon key
+-- CONTACT INQUIRIES
+create table if not exists contact_inquiries (
+  id uuid primary key default gen_random_uuid(),
+  full_name text not null,
+  email text not null,
+  phone text,
+  message text not null,
+  created_at timestamp with time zone default now()
+);
+
+alter table contact_inquiries enable row level security;
+
+create policy "Anyone can insert contact inquiries"
+  on contact_inquiries for insert
+  with check (true);
+
+create policy "Admins can view all contact inquiries"
+  on contact_inquiries for select
+  using (
+    exists (
+      select 1 from profiles
+      where id = auth.uid() and role = 'admin'
+    )
+  );
+
+create index if not exists idx_contact_inquiries_created on contact_inquiries(created_at desc);

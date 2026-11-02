@@ -9,15 +9,13 @@ export class RegistrationService {
   constructor(private supabaseService: SupabaseService) {}
 
   async register(data: Omit<Registration, 'id' | 'created_at'>): Promise<{ data: Registration | null; error: string | null }> {
-    const { data: result, error } = await this.supabaseService.supabase
+    const { error } = await this.supabaseService.supabase
       .from('registrations')
-      .insert(data)
-      .select()
-      .single();
+      .insert(data);
 
     if (error) return { data: null, error: error.message };
 
-    // Trigger confirmation email via Edge Function
+    // Trigger confirmation email via Edge Function (non-fatal)
     try {
       await this.supabaseService.supabase.functions.invoke('send-registration-confirmation', {
         body: {
@@ -31,7 +29,8 @@ export class RegistrationService {
       console.warn('Failed to send registration confirmation email');
     }
 
-    return { data: result as Registration, error: null };
+    const result: Registration = { id: '', created_at: new Date().toISOString(), ...data };
+    return { data: result, error: null };
   }
 
   async getAllRegistrations() {
